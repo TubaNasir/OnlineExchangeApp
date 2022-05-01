@@ -1,0 +1,23 @@
+.input-group{
+    margin: 50px 50px
+}
+.label{
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+.label-range{
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.option{
+    font-size: 14px;
+}
+
+.form-select{
+    font-size: 14px;
+}
+
+h5{
+    font-weight: 600;
+}
