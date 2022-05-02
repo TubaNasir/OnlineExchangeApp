@@ -382,7 +382,7 @@ const advertisementController = {
                                             if (cat1.children.length > 0) {
                                                 promises = await cat1.children.map(async (child) => {
                                                     console.log(child.name)
-                                                    const result = new features(Ad.find({ categoryID: child._id.toHexString() }), req.query).filtering().sorting().paginating()
+                                                    const result = new features(Ad.find({ categoryID: child._id.toHexString() }), req.query).filtering()
                                                     const child_ads = await result.query
                                                     /* Array.prototype.push.apply(all_ads, child_ads);
                                                      */
@@ -415,7 +415,19 @@ const advertisementController = {
                         )
 
                         ads2 = await Promise.all(promise2)
-                        console.log(ads2, ads2[0].length)
+                        if(req.query.sort){
+                            console.log('in')
+                            if(req.query.sort==='price')
+                            all_ads= all_ads.sort(function(a,b) {return (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0);})
+                            if(req.query.sort==='-price')
+                            all_ads= all_ads.sort(function(b,a) {return (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0);})
+                            if(req.query.sort==='createdAt')
+                            all_ads= all_ads.sort(function(a,b) {return (a.createdAt > b.createdAt) ? 1 : ((b.createdAt > a.createdAt) ? -1 : 0);})
+                            if(req.query.sort==='-createdAt')
+                            all_ads= all_ads.sort(function(b,a) {return (a.createdAt > b.createdAt) ? 1 : ((b.createdAt > a.createdAt) ? -1 : 0);})
+                            
+                        }
+                        
                         if (all_ads === 0) return res.status(404).json({ error: { code: res.statusCode, msg: 'No ads found' }, data: null })
                         all_ads=all_ads.slice((req.query.page-1) * req.query.limit, ((req.query.page-1) * req.query.limit) + req.query.limit)
                         //console.log(ads2.length)
