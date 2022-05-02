@@ -48,7 +48,7 @@ const Pagination = () => {
   }
 
   let pageDecrementBtn = null
-  if (pages.length <= minPageLimit + pageLimit) {
+  if (pages.length < minPageLimit + pageLimit) {
     pageDecrementBtn = <li>&hellip;</li>
   }
 

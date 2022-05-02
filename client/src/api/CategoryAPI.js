@@ -49,9 +49,11 @@ export const uploadImagee = async (formData, token) => {
     })
 }
 
-export const createCategory = async ( category , token) => {
-    return await axios.post('/category/create',  category , {
-        headers: { Authorization: token }
+export const createCategory = async ( data , token) => {
+    return await axios.post('/category/create',  data , {
+        headers: { "Content-Type": "multipart/form-data" ,
+        Authorization: token
+        }
     })
 }
 

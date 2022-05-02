@@ -6,9 +6,10 @@ import CheckboxTree from 'react-checkbox-tree'
 import 'react-checkbox-tree/lib/react-checkbox-tree.css'
 import { IoIosCheckboxOutline, IoIosCheckbox, IoMdArrowDropdown, IoMdArrowDropright, IoIosAdd, IoMdCreate, IoIosTrash } from "react-icons/io";
 import '../UI/Category.css'
+const FormData = require('form-data');
+
 
 function Category() {
-
     const state = useContext(GlobalState)
     const uploadImageAPI = state.CategoryAPI.uploadImage
     const [categories] = state.CategoryAPI.categories
@@ -28,6 +29,7 @@ console.log(categories)
     const [checkedArray, setCheckedArray] = useState([]);
     const [expandedArray, setExpandedArray] = useState([]);
 
+    console.log(category)
 
 
     const handleEdit = () => {
@@ -47,7 +49,12 @@ console.log(categories)
     }
 
     const handleSubmit = () => {
-        createCategory({ ...category }, token)
+    let formData = new FormData();
+      formData.append('image', category.image);
+      formData.append('name', category.name);
+      formData.append('parentId', category.parentId);
+
+        createCategory(formData, token)
             .then(res => {
                 console.log(res.data)
                 setCallback(!callback)
@@ -58,6 +65,12 @@ console.log(categories)
             })
         
     }
+
+
+    const handleChange = (name) => (e) => {
+        const value = name === "image" ? e.target.files[0] : e.target.value;
+        setCategory({ ...category, [name]: value });
+      };
 
     const handleDelete = () => {
         checkedArray.forEach((array) =>
@@ -245,7 +258,7 @@ console.log(categories)
                     }
                 </select>
                 <br />
-                <input type='file' id='file' name='categoryImage' onChange={uploadImage}>
+                <input type='file' id='file' name='image' accept='image/*' onChange={handleChange("image")}>
                 </input>
                 {/* (e) => setCategoryImage(e.target.files[0]) */}
             </Modal.Body>
@@ -297,7 +310,7 @@ console.log(categories)
                                 <br />
                             </Col>
                             <Col>
-                                <input type='file' id='file' name='categoryImage' onChange={uploadImage}></input>
+                                <input className="form-control" type='file' id='file' name='image' onChange={handleChange("image")}></input>
                             </Col>
                         </Row>
 

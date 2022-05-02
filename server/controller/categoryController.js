@@ -1,7 +1,8 @@
-const router = require("express").Router();
 const Category = require("../model/categoryModel");
 const slugify = require("slugify");
 const User = require("../model/userModel");
+const cloudinary = require('../utils/cloudinary')
+const fs = require ('fs')
 
 function createCategory(categories, parentId = null) {
     const categoryList = [];
@@ -29,6 +30,8 @@ const categoryController = {
     //create category
     createCat: async (req, res) => {
         try {
+
+            let images=[]
             const user = await User.findById(req.user.id);
             if (!user)
                 return res.status(404).json({
@@ -44,23 +47,29 @@ const categoryController = {
                     data: null,
                 });
             } else {
-
+                
                 if(!req.body.name){
                     return res.status(400).json({error:{code: res.statusCode, msg: 'Category name is required'}, data: null}) 
 
                 }
+                let image='';
+                await cloudinary.uploader.upload(req.file.path, { folder: "Online-Exchange-App" }, async (err, result) => {
+                    if (err) reject(res.status(404).json({ error: { code: res.statusCode, msg: error.msg }, data: null }))
 
+                    //removeTmp(file.tempFilePath)
+                    image=({ url: result.url, public_id: result.public_id })
+                    console.log(image)
+                })
+                
                 const categoryObj = new Category({
                     name: req.body.name,
                     slug: slugify(req.body.name),
+                    image: image
                 });
     
                 if (req.body.parentId) {
                     categoryObj.parentId = req.body.parentId;
                 }
-                if (req.body.image) 
-                    categoryObj.image = req.body.image;
-                
 
                 const savedCat = await categoryObj.save();
                 if (!savedCat)
@@ -226,3 +235,10 @@ const categoryController = {
 }
 
 module.exports = categoryController;
+
+const removeTmp = (path) =>{
+    console.log('error')
+    fs.unlink(path, err=>{
+        if(err) throw err;
+    })
+}

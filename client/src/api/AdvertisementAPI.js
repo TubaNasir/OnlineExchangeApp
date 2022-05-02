@@ -61,19 +61,19 @@ export const getAllAdsAPI = async (price,province,city,sortPrice,sortAds,page,li
 }
 
 export const countAdsAPI = async (price,province,city) => {
-    return await axios.get(`/ad/count_ads?price[gte]=${price[0]}&price[lte]=${price[1]}&${city}&${province}}`)
+    return await axios.get(`/ad/count_ads?price[gte]=${price[0]}&price[lte]=${price[1]}&${city}&${province}`)
 }
 
 export const countAdsbySlugAPI = async (slug,price,province,city) => {
-    return await axios.get(`/ad/count_ads?${slug}price[gte]=${price[0]}&price[lte]=${price[1]}&${city}&${province}}`)
+    return await axios.get(`/ad/count_ads/${slug}?price[gte]=${price[0]}&price[lte]=${price[1]}&${city}&${province}`)
 }
 
-export const getAllAdsbySlugAPI = async (slug, price, city, province,sortPrice,sortAds,page,limit) => {
-    return await axios.get( `/ad/all_ads/${slug}?price[gte]=${price[0]}&price[lte]=${price[1]}&city=${city}&province=${province}&${sortPrice}&${sortAds}&page=${page}&limit=${limit}`)
+export const getAllAdsbySlugAPI = async (slug, price, province,city,sortPrice,sortAds,page,limit) => {
+    return await axios.get( `/ad/all_ads/${slug}?price[gte]=${price[0]}&price[lte]=${price[1]}${city}&${province}&${sortPrice}&${sortAds}&page=${page}&limit=${limit}`)
 }
 
 export const postAdAPI = async (ad, token) => {
-    return await axios.get(`/ad/post_ad`, ad,  {
+    return await axios.post(`/ad/post_ad`, ad,  {
         headers: {Authorization: token}
     })
 }
