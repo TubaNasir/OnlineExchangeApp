@@ -72,9 +72,6 @@ export const FilterPanel = () => {
     },
   ];
 
-
-
-
   useEffect(() => {
     setLocation(prevState => ({
       ...prevState,
