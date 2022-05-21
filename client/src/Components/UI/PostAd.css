@@ -5,6 +5,9 @@
 .mainLabel{
     font-weight: 600;
     font-size: 18px;
+    background-color: #cae7ea ;
+    border-radius: 10px;
+    padding: 3px 10px;
 }
 
 .subLabel{
@@ -16,3 +19,6 @@
     border-color: dimgray;
     border-radius: 15px 15px;
 }
+textarea {
+    resize: none;
+  }
