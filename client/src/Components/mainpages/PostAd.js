@@ -29,8 +29,7 @@ function PostAd() {
     var mcat=[]
     var scatArr=[]
     var sscatArr=[];
-    let promise1=null;  
-    promise1 = categories.map(async (cat) => {
+    categories.map(async (cat) => {
         if (cat.children) {
           cat.children.map(scat => {
             scatArr.push({ name: scat.name })
@@ -49,6 +48,8 @@ function PostAd() {
       //const c1 = Promise.all(promise1)
       return mcat;
   }
+
+  console.log(categoryDropdown())
 
   const updateCat = newCat => {
     setCat({ ...cat, ...newCat });
@@ -74,7 +75,10 @@ function PostAd() {
   };
 
   const changeSubCategory = event => {
+    console.log(event.target.value)
     if (event.target.value === '') {
+      console.log("in")
+
       updateCat({
         selectedSubCat: '',
         subSubCat: []
@@ -82,9 +86,28 @@ function PostAd() {
       //setProvince('')
     }
     else {
+      console.log("inn")
+
       updateCat({
         selectedSubCat: event.target.value,
         subSubCat: cat.subCat.find(p => p.name === event.target.value).subSubCat
+      });
+
+      //setProvince('province=' + event.target.value)
+    }
+
+  };
+
+  const changeSubSubCategory = event => {
+    if (event.target.value === '') {
+      updateCat({
+        selectedSubSubCat: ''
+      })
+      //setProvince('')
+    }
+    else {
+      updateCat({
+        selectedSubSubCat: event.target.value
       });
 
       //setProvince('province=' + event.target.value)
@@ -98,7 +121,7 @@ function PostAd() {
       mainCat: categoryDropdown()
     }))
 
-  })
+  },[categories])
 
   const handleChangeSingle = (name) => (e) => {
     const value = name === "file1" ? e.target.files : e.target.value;
@@ -145,8 +168,17 @@ function PostAd() {
           <Row>
           <label className='subLabel'>Sub Category</label>
             <select className="form-select" placeholder="Sub Category" value={cat.selectedSubCat} onChange={changeSubCategory}>
-              <option className='option' value=''>-Select Sub Category-</option>
+              <option className='option' value=''>Select Sub Category</option>
               {cat.subCat.map((c, key) => {
+                return <option className='option' key={key} value={c.name}>{c.name}</option>;
+              })}
+            </select>
+          </Row>
+          <Row>
+          <label className='subLabel'>Category Types</label>
+            <select className="form-select" placeholder="Category Type" value={cat.selectedSubSubCat} onChange={changeSubSubCategory}>
+              <option className='option' value=''>Select Category Type</option>
+              {cat.subSubCat.map((c, key) => {
                 return <option className='option' key={key} value={c.name}>{c.name}</option>;
               })}
             </select>
