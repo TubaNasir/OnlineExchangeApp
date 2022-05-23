@@ -1,12 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { GlobalState } from '../../GlobalState'
+import {useNavigate} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Cart from './cart.svg'
 import {logoutAPI} from '../../api/UserAPI'
 import {IoMdSearch} from 'react-icons/io'
+import {FaPlusCircle} from 'react-icons/fa'
+import {Link} from 'react-router-dom'
 import './Header.css'
 
 function Header() {
+    let navigate= useNavigate()
     const state = useContext(GlobalState)
     const [dropdown, setDropdown] = useState(false)
 
@@ -16,7 +20,10 @@ function Header() {
     const [user] = state.UserAPI.user
     const [search, setSearch] = state.AdvertisementAPI.search
 
-
+    const addProduct = () =>{
+        if (!isLogged) 
+        alert("Please login post your advertisement")
+    }
 
 
     const router = () => {
@@ -40,13 +47,13 @@ function Header() {
                       
                 </div>
                 </li>
-
-                <div className="cart-icon">
-                        <span>0</span>
-                        <a href="/cart">
-                        <img src={Cart} alt="" width="25" className="fast"/>
-                        </a>               
-                    </div>
+                <span>                       
+{/*                 <a className="nav-link" href="/post_ad" onClick={addProduct}><FaPlusCircle className ='icon' size={30}/></a>
+ */}                <Link to={{
+                        pathname:"/post_ad",
+                        state:{title: 'Post Advertisement'}
+                    }}><FaPlusCircle className ='icon' size={30} onClick={addProduct}/></Link>
+                </span>
             
             </>
         )

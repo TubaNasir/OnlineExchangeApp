@@ -2,7 +2,13 @@
   color: lightgrey;
   size: 12 px;
   margin: 0 5px;
-  border-color: gray
+  border-color: gray;
+  border: 2px;
+}
+
+.icon {
+  color: lightgray;
+  margin: 0 5px;
 }
 
 /* .navbar {

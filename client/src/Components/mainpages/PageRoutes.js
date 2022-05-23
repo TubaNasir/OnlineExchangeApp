@@ -1,6 +1,7 @@
 import React,  {useContext} from 'react';
 import { GlobalState } from '../../GlobalState'
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, Link,Navigate} from 'react-router-dom';
+//import PrivateRoute from './PrivateRoute.ts';
 import Register from './Register';
 import Login from './Login';
 import Advertisements from './Advertisements'
@@ -34,7 +35,8 @@ function PageRoutes() {
         <Route path="/complaints" exact element={<Complaints/>}/>
         <Route path="/profile" exact element={<Profile/>}/>
         <Route path="/category" exact element={<Category/>}/>
-        <Route path="/post_ad" exact element={<PostAd/>}/>
+        <Route path="/post_ad" exact element={isLogged && !isAdmin ? <PostAd/>: <Navigate to='/login'/>}/>
+        <Route path="/edit_ad/:id" exact element={isLogged && !isAdmin ?  <PostAd/> : null}/>
     </Routes>
   )
 }

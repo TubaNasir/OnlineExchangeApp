@@ -73,6 +73,7 @@ export const getAllAdsbySlugAPI = async (slug, price, province,city,sortPrice,so
 }
 
 export const postAdAPI = async (ad, token) => {
+    console.log('in method')
     return await axios.post(`/ad/post_ad`, ad,  {
         headers: {Authorization: token}
     })

@@ -460,8 +460,16 @@ const advertisementController = {
                 return res.status(403).json({ error: { code: res.statusCode, msg: 'You do not have permission to access this resource' }, data: null })
             } 
 
-            //const { name, price, description, categoryID, status, image, area, city, province } = req.body
-            const  name  = req.body.name
+            const { name, price, description, categoryID, area, city, province } = req.body
+            
+            if (Object.keys(name, price, description, categoryID, area, city, province).length === 0) {
+                return res.status(404).json({ error: { code: res.statusCode, msg: 'Input data missing' }, data: null })
+
+             }
+            /* if (!name || !price || !description || !categoryID || !area || !city || !province){
+                return res.status(404).json({ error: { code: res.statusCode, msg: 'Input data missing' }, data: null })
+
+            } */
             console.log(req.files)
             //console.log(req.files['file1'])
             //console.log(req.files['file2'])
@@ -510,13 +518,13 @@ const advertisementController = {
                 console.log(images)
             }
 
-            //const newAd = new Ad({ user, name, price, description, categoryID, status, image, area, city, province })
-            //if (!newAd) return res.status(404).json({ error: { code: res.statusCode, msg: 'Ad not created' }, data: null })
+            const newAd = new Ad({ user, name, price, description, categoryID, image: images, area, city, province })
+            if (!newAd) return res.status(404).json({ error: { code: res.statusCode, msg: 'Ad not created' }, data: null })
 
-            // const ad = await newAd.save()
+            const ad = await newAd.save()
 
-            //const savedAd = await User.findOneAndUpdate({ _id: user._id }, { $push: { ads: newAd._id } });
-            //if (!savedAd || !ad) return res.status(404).json({ error: { code: res.statusCode, msg: 'Ad not added to database' }, data: null })
+            const savedAd = await User.findOneAndUpdate({ _id: user._id }, { $push: { ads: newAd._id } });
+            if (!savedAd || !ad) return res.status(404).json({ error: { code: res.statusCode, msg: 'Ad not added to database' }, data: null })
 
             return res.status(200).json({ error: { code: null, msg: null }, data: "Ad Posted Successfully" })
 

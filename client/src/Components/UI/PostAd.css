@@ -22,3 +22,38 @@
 textarea {
     resize: none;
   }
+
+.img2{
+  border-width: 2px 2px;
+  border-color: dimgray;
+  border-radius: 5px 5px;
+  margin: 10px
+}
+#file[type="file"] {
+	display: none;
+}
+
+#file_up::before {
+    content: "+";
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: white;
+    color: rgb(250, 200, 107);
+    font-size: 17rem;
+    text-align: center;
+    cursor: pointer;
+    margin: auto;
+  }
+  
+  .upload {
+    max-width: 450px;
+    width: 150px;
+  height: 150px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 20px;
+    position: relative;
+  }
+  

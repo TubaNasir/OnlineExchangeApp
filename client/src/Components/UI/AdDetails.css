@@ -1,0 +1,52 @@
+
+.list{
+    height: 12.1rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    width: 100%;
+}
+
+.a{
+position: relative;
+overflow: hidden;
+cursor: pointer;
+user-select: none;
+border: 0.1rem solid rgba(0,47,52,.2);
+border-radius: 4px;
+height: 100%;
+width: 100%;
+display: flex;
+display:block;
+}
+
+
+.image{
+    height: 60%;
+    background-color: #fff;
+    margin: 0;
+    position: relative;
+    background-color: #222;
+    width: 35%;
+    height: 100%;
+    border-right: 0.1rem solid rgba(0,47,52,.2);
+    display: block;
+}
+*, :after, :before {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+.img1{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.ad_details{
+    weight: 40%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 65%;
+    height: 100%;
+    padding: 1.6rem 1.6rem 1.6rem 2.58rem;
+}
