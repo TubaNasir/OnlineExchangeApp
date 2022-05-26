@@ -12,6 +12,7 @@ import AdminHomepage from './AdminHomepage'
 import Profile from './Profile'
 import Category from './Category'
 import PostAd from './PostAd'
+import AdDetailsPage from './AdDetailsPage'
 import AdvertisementsFiltered from './AdvertisementsFiltered';
 
 
@@ -35,7 +36,8 @@ function PageRoutes() {
         <Route path="/complaints" exact element={<Complaints/>}/>
         <Route path="/profile" exact element={<Profile/>}/>
         <Route path="/category" exact element={<Category/>}/>
-        <Route path="/post_ad" exact element={isLogged && !isAdmin ? <PostAd/>: <Navigate to='/login'/>}/>
+        <Route path="/category" exact element={<Category/>}/>
+        <Route path='/ad/:id' exact element={<AdDetailsPage/>}/>
         <Route path="/edit_ad/:id" exact element={isLogged && !isAdmin ?  <PostAd/> : null}/>
     </Routes>
   )

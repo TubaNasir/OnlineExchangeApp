@@ -12,14 +12,11 @@ const Pagination = () => {
   const [minPageLimit, setMinPageLimit] = useState(0)
   const [maxPageLimit, setMaxPageLimit] = useState(2)
   const [count, setCount] = state.AdvertisementAPI.count
+  const [pages, setPages] = useState([])
   console.log(count)
-  const pageCount = Math.ceil(count / limit);
-  if (pageCount === 1) return null;
-  const pages = []
-  for (let i = 1; i <= pageCount; i++) {
-    pages.push(i)
-  }
-
+  console.log('pageslist', pages)
+  console.log('page', page)
+  
   const handleClick = (e) => {
     setPage(e.target.value)
   }
@@ -42,7 +39,8 @@ const Pagination = () => {
     }
   }
 
-  let pageIncrementBtn = null
+  
+  /* let pageIncrementBtn = null
   if (pages.length > maxPageLimit) {
     pageIncrementBtn = <li>&hellip;</li>
   }
@@ -50,7 +48,7 @@ const Pagination = () => {
   let pageDecrementBtn = null
   if (pages.length < minPageLimit + pageLimit) {
     pageDecrementBtn = <li>&hellip;</li>
-  }
+  } */
 
   const renderPages = pages.map((p) => {
 
@@ -65,22 +63,37 @@ const Pagination = () => {
 
   });
 
+  const setPageCount =async () => {
+    setPages([])
+    const pageCount = Math.ceil(count / limit);
+    if (pageCount === 1) return null;
+    for (let i = 1; i <= pageCount; i++) {
+      setPages(pages => [...pages,i]);
+    }
+    setMinPageLimit(0)
+    setMaxPageLimit(2)
+  } 
+
+  useEffect(()=>{
+   setPageCount()
+  },[count])
+
   return (
     <div>
       <nav className='d-flex justify-content-center'>
         <ul className='pageNumbers'>
           <li>
             <button onClick={handlePrev}
-              disabled={page === pages[0] ? true : false}>
+              disabled={page === pages[0] || pages.length===0 ? true : false}>
               Prev
             </button>
           </li>
-          {pageDecrementBtn}
+         {/*  {pageDecrementBtn} */}
           {renderPages}
-          {pageIncrementBtn}
+          {/* {pageIncrementBtn} */}
           <li>
             <button onClick={handleNext}
-              disabled={page === pages[pages.length-1] ? true : false}>
+              disabled={page === pages[pages.length-1] || pages.length===0? true : false}>
               Next
             </button>
           </li>

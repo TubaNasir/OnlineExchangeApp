@@ -89,7 +89,7 @@ function Header() {
 
         else{
             if(isAdmin){
-                const menuClass = `dropdown-menu${dropdown ? "show" : ""}`
+                const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
                 return (
                 <>
                 <li className="nav-item dropdown ">

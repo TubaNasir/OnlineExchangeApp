@@ -26,6 +26,7 @@ export const FilterPanel = () => {
   const state = useContext(GlobalState)
 
   const [price, setPrice] = state.AdvertisementAPI.price
+  const [page, setPage] = state.AdvertisementAPI.page
   const [location, setLocation] = useState({
     provinces: [],
     cities: [],
@@ -36,6 +37,7 @@ export const FilterPanel = () => {
   const [province, setProvince] = state.AdvertisementAPI.province
   const [sortPrice, setSortPrice] = state.AdvertisementAPI.sortPrice
   const [sortAds, setSortAds] = state.AdvertisementAPI.sortAds
+  
 
   const updateRange = (e, data) => {
     setPrice(data);
@@ -71,6 +73,15 @@ export const FilterPanel = () => {
       label: "Rs 1000",
     },
   ];
+
+  const updatePageonFilters = () => {
+    setPage(1)
+  }
+
+  useEffect(() => {
+    updatePageonFilters()
+  },[sortPrice,city,province, sortAds,price])
+
 
   useEffect(() => {
     setLocation(prevState => ({
@@ -116,6 +127,7 @@ export const FilterPanel = () => {
         cities: []
       })
       setProvince('')
+      setCity('')
     }
     else {
       updateLocation({
@@ -123,7 +135,8 @@ export const FilterPanel = () => {
         cities: location.provinces.find(p => p.name === event.target.value).cities
       });
 
-      setProvince('province=' + event.target.value)
+      setProvince(event.target.value)
+      setCity('')
     }
 
   };
@@ -134,7 +147,7 @@ export const FilterPanel = () => {
       setCity('')
     } else {
       updateLocation({ selectedCity: event.target.value })
-      setCity('city=' + location.selectedCity)
+      setCity(event.target.value)
     }
   }
 
@@ -222,8 +235,8 @@ export const FilterPanel = () => {
         <div className="form-group">
           <select className="form-select" placeholder="Select" value={sortPrice} onChange={(e) => setSortPrice(e.target.value)}>
             <option className=''>None</option>
-            <option value='sort=-price'>High-Low</option>
-            <option value='sort=price'>Low-High</option>
+            <option value='-price'>High-Low</option>
+            <option value='=price'>Low-High</option>
           </select>
         </div>
 
@@ -231,7 +244,7 @@ export const FilterPanel = () => {
         <div className="form-group">
           <select className="form-select" placeholder="Select" value={sortAds} onChange={(e) => setSortAds(e.target.value)}>
             <option value=''>New-Old</option>
-            <option value='sort=createdAt'>Old-New</option>
+            <option value='=createdAt'>Old-New</option>
           </select>
         </div>
 

@@ -105,7 +105,7 @@ const advertisementController = {
                 const count = await result.query.countDocuments({})
                 console.log(count)
 
-                if (!count) return res.status(404).json({ error: { code: res.statusCode, msg: 'No ads found' }, data: null })
+                //if (!count) return res.status(404).json({ error: { code: res.statusCode, msg: 'No ads found' }, data: null })
                 return res.status(200).json({ error: { code: null, msg: null }, data: count })
 
 
@@ -360,7 +360,7 @@ const advertisementController = {
                     }
                     
 
-                    all_ads=all_ads.slice((req.query.page-1) * req.query.limit, ((req.query.page-1) * req.query.limit) + req.query.limit)
+                    all_ads=all_ads.slice((req.query.page-1) * req.query.limit, (req.query.page * req.query.limit))
                     //return ads2
                     //console.log(ads2[0][0][0])
                 }
@@ -429,7 +429,7 @@ const advertisementController = {
                         }
                         
                         if (all_ads === 0) return res.status(404).json({ error: { code: res.statusCode, msg: 'No ads found' }, data: null })
-                        all_ads=all_ads.slice((req.query.page-1) * req.query.limit, ((req.query.page-1) * req.query.limit) + req.query.limit)
+                        all_ads=all_ads.slice((req.query.page-1) * req.query.limit, (req.query.page * req.query.limit))
                         //console.log(ads2.length)
 
                     }

@@ -1,10 +1,18 @@
-ul{
+.list{
     list-style: none;
     width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin: 0 0 0.8rem;
+}
+
+.t{
+    margin: 0 0 0 30px;
+    font-weight: 750;
+    font-size: 30px;
+    text-align: left;
+
+}
+
+a:link{
+    text-decoration:none;
 }
