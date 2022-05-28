@@ -27,7 +27,6 @@ function AdDetails({advertisement}) {
             <div className='location'>
             <div className='loc'>
                 <span className='city'>{advertisement.city}
-                <span> • </span>
                 </span>
                 <span className='time'>{moment(advertisement.createdAt).fromNow()}</span>
         

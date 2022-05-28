@@ -97,6 +97,12 @@ const childrenProducts = async (categoryList, categoryI, rquery, all_ads) => {
 }
 
 const advertisementController = {
+    getAllAdsWithoutFiltersorPagination: async (req,res) => {
+        const ads = await Ad.find();
+        if (!ads) return res.status(404).json({ error: { code: res.statusCode, msg: 'No Ad found' }, data: null })
+        return res.status(200).json({ error: { code: null, msg: null }, data: ads })
+    },
+
     countAds: async (req, res) => {
         try {
 
@@ -460,7 +466,7 @@ const advertisementController = {
                 return res.status(403).json({ error: { code: res.statusCode, msg: 'You do not have permission to access this resource' }, data: null })
             } 
 
-            const { name, price, description, categoryID, area, city, province } = req.body
+            const {name, price, description, categoryID, area, city, province } = req.body
             
             if (Object.keys(name, price, description, categoryID, area, city, province).length === 0) {
                 return res.status(404).json({ error: { code: res.statusCode, msg: 'Input data missing' }, data: null })
@@ -518,7 +524,7 @@ const advertisementController = {
                 console.log(images)
             }
 
-            const newAd = new Ad({ user, name, price, description, categoryID, image: images, area, city, province })
+            const newAd = new Ad({ userId: user._id, name, price, description, categoryID, image: images, area, city, province })
             if (!newAd) return res.status(404).json({ error: { code: res.statusCode, msg: 'Ad not created' }, data: null })
 
             const ad = await newAd.save()

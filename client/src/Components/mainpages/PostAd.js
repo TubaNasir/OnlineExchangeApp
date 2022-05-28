@@ -3,6 +3,7 @@ import { postAdAPI, getAdInfoAPI } from '../../api/AdvertisementAPI';
 import { GlobalState } from '../../GlobalState'
 import { Container, Row, Col, Modal, Button, FormGroup } from 'react-bootstrap'
 import Title from '../utilities/Title'
+import Toast from '../utilities/ToastMsg'
 import { IoIosImage } from 'react-icons/io'
 import { MdLocationOn, MdAttachMoney } from 'react-icons/md'
 import {IoMdImage} from 'react-icons/io'
@@ -14,6 +15,7 @@ var FormData = require('form-data');
 function PostAd({title}) {
   const state = useContext(GlobalState)
   const [categories] = state.CategoryAPI.categories
+  const [user] = state.UserAPI.user
   const [token] = state.UserAPI.token
   const param = useParams()
   const [onEdit, setOnEdit] = useState(false)
@@ -54,7 +56,7 @@ function PostAd({title}) {
         selectedProvince: '',
         cities: []
       })
-      setAd({ ...ad, province: null })
+      setAd({ ...ad, province: '' })
     }
     else {
       updateLocation({
@@ -70,7 +72,7 @@ function PostAd({title}) {
   const changeCity = event => {
     if (event.target.value === '') {
       updateLocation({ selectedCity: '' })
-      setAd({ ...ad, city: null })
+      setAd({ ...ad, city: '' })
     } else {
       updateLocation({ selectedCity: event.target.value })
       setAd({ ...ad, city: event.target.value })
@@ -320,18 +322,35 @@ console.log(cat)
     console.log('in methodd')
     postAdAPI(formdata, token)
       .then(res => {
-        console.log(res.data)
+        console.log(res.data);
+        alert("Ad posted successfully")
+        setAd({name:'' , description: '', price: '',area: '',province: '',city:'', categoryID: '',file1:[],file2:[]})
+        updateCat({
+          selectedMainCat:'',
+          selectedSubCat:'',
+          selectedSubSubCat:'',
+          subCat: [],
+          subSubCat: []
+        });
+        updateLocation({
+          selectedProvince: '',
+          selectedCity: '',
+          cities: []
+        })
+        //return(<Toast msg="Ad posted successfully"/>)
       })
       .catch(err => {
         console.log(err.response.data)
         alert(err.response.data.error.msg)
+        alert("Ad posting failed")
+        //return(<Toast msg="Failed to post ad"/>)
       })
 
   }
 
   return (
     <div>
-      <Title title={title} />
+      <Title title='Post Advertisement' />
       <Container >
         <form onSubmit={handleSubmit}>
           <Col md={{ span: 8, offset: 2 }}>

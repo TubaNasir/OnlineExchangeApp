@@ -28,15 +28,9 @@ export default function CategoryAPI() {
 
     }, [callback])
 
-    const uploadImage = async (formData, token) => {
-        return await axios.post('/category/upload_image', formData, {
-            headers: { 'content-type': 'multipart/form-data', Authorization: token }
-        })
-    }
-
+  
 
     return {
-        uploadImage: uploadImage,
         categories: [categories, setCategories],
         callback: [callback, setCallback]
     }
@@ -51,9 +45,7 @@ export const uploadImagee = async (formData, token) => {
 
 export const createCategory = async ( data , token) => {
     return await axios.post('/category/create',  data , {
-        headers: { "Content-Type": "multipart/form-data" ,
-        Authorization: token
-        }
+        headers: {Authorization: token}
     })
 }
 

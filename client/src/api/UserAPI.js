@@ -7,14 +7,15 @@ export default function UserAPI() {
     const [isAdmin, setIsAdmin] = useState(false)    
     const [user, setUser] = useState([])
     const [token, setToken] = useState(false)
+    const [allUsers, setAllUsers] = useState([])
     
     console.log('token', token)
     console.log('logged', isLogged)
     console.log(localStorage.getItem('firstLogin'))
+        const firstLogin = localStorage.getItem('firstLogin')
 
     useEffect(() => { 
         console.log('login')
-        const firstLogin = localStorage.getItem('firstLogin')
         
             if (firstLogin) {
                 const refreshToken = async () => {
@@ -40,13 +41,26 @@ export default function UserAPI() {
                     refreshToken()
                 }
        
+                const getAllUsers = async () => {
+                    await axios.get('/user/all_users')
+                    .then(res => {
+                        console.log(res.data)
+                        setAllUsers(res.data.data)
+                    })
+                    .catch(err => {
+                        console.log(err.response.data)
+                        alert(err.response.data.error.msg)
+
+                    })
+                }
+                getAllUsers()
     },[])
 
     useEffect(() =>{
         if (token){
             const getUser = async () => {
                 try {
-                    await axios.get('/user/user_info', {
+                    await axios.get(`/user/user_info`, {
                         headers: { Authorization: token }
                     })
                     .then(res => {
@@ -76,7 +90,8 @@ export default function UserAPI() {
     isLogged: [isLogged, setIsLogged],
     isAdmin: [isAdmin, setIsAdmin],
     user: [user, setUser],
-    token: [token, setToken]
+    token: [token, setToken],
+    allUsers: [allUsers,setAllUsers]
   }
 }
 
@@ -96,14 +111,15 @@ export const allUsersAPI = async () => {
     return await axios.get('/user/all_users')
 }
 
-export const userInfoAPI = async (id,token,user) => {
-    await axios.get(`/user/user_info/${id}`, user,  {
+export const userInfoAPI = async (id,token) => {
+    console.log('sellerid', id)
+    return await axios.get(`/user/user_info/${id}`,  {
     headers: {Authorization: token}
 })
 }
 
-export const updateUserInfoAPI = async (id,token) => {
-    await axios.put(`/user/update_user_info/${id}`,   {
+export const updateUserInfoAPI = async (user,token) => {
+    return await axios.patch(`/user/update_user_info`, user, {
     headers: {Authorization: token}
 })
 }

@@ -5,8 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Cart from './cart.svg'
 import {logoutAPI} from '../../api/UserAPI'
 import {IoMdSearch} from 'react-icons/io'
-import {FaPlusCircle} from 'react-icons/fa'
+import {FaPlusCircle, FaShoppingCart} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
+
 import './Header.css'
 
 function Header() {
@@ -19,11 +20,6 @@ function Header() {
     const [isAdmin, setIsAdmin] = state.UserAPI.isAdmin
     const [user] = state.UserAPI.user
     const [search, setSearch] = state.AdvertisementAPI.search
-
-    const addProduct = () =>{
-        if (!isLogged) 
-        alert("Please login post your advertisement")
-    }
 
 
     const router = () => {
@@ -48,12 +44,9 @@ function Header() {
                 </div>
                 </li>
                 <span>                       
-{/*                 <a className="nav-link" href="/post_ad" onClick={addProduct}><FaPlusCircle className ='icon' size={30}/></a>
- */}                <Link to={{
-                        pathname:"/post_ad",
-                        state:{title: 'Post Advertisement'}
-                    }}><FaPlusCircle className ='icon' size={30} onClick={addProduct}/></Link>
+              <Link to="/post_ad"><FaPlusCircle className ='icon' size={30} /></Link>
                 </span>
+                <span><Link to='/cart'><FaShoppingCart className='header_icon'/></Link></span>
             
             </>
         )
@@ -109,7 +102,7 @@ function Header() {
                 )
             }
             else if (!isAdmin){
-                const menuClass = `dropdown-menu${dropdown ? "show" : ""}`
+                const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
                 return (
                 <>
                 <li className="nav-item dropdown ">

@@ -38,6 +38,7 @@ function PageRoutes() {
         <Route path="/category" exact element={<Category/>}/>
         <Route path="/category" exact element={<Category/>}/>
         <Route path='/ad/:id' exact element={<AdDetailsPage/>}/>
+        <Route path="/post_ad" exact element={isLogged && !isAdmin ?  <PostAd/> : <Navigate to='/login'/>}/>
         <Route path="/edit_ad/:id" exact element={isLogged && !isAdmin ?  <PostAd/> : null}/>
     </Routes>
   )

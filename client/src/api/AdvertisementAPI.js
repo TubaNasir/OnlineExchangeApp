@@ -2,12 +2,12 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 
 export default function AdvertisementAPI(){
-
+    const [allAdvertisements, setAllAdvertisements] = useState([])
     const [advertisements, setAdvertisements] = useState([])
     const [callback, setCallBack] = useState(false)
     const [slug, setSlug] = useState()
     const [search, setSearch] =useState('')
-    const [price, setPrice] =useState([0,100000])
+    const [price, setPrice] =useState([0,1000000])
     const[sortPrice, setSortPrice] = useState('')
     const [sortAds, setSortAds] = useState('')
   const [city, setCity] = useState('')
@@ -18,13 +18,13 @@ export default function AdvertisementAPI(){
   const [status, setStatus] = useState('')
   
     
-/*     useEffect(() => {
+     useEffect(() => {
         const getAdvertisements = async () => {
             try {
-                await axios.get(`/ad/all_ads`)
+                await axios.get(`/ad/all_advertisements`)
                     .then(res => {
                         console.log(res.data)
-                        setAdvertisements(res.data.data)
+                        setAllAdvertisements(res.data.data)
                     })
                     .catch(err => {
                         console.log(err.response.data)
@@ -36,9 +36,10 @@ export default function AdvertisementAPI(){
             }
         }
         getAdvertisements()
-    }, [callback]) */
+    }, [callback]) 
 
     return{
+        allAdvertisements: [allAdvertisements, setAllAdvertisements],
         advertisements: [advertisements, setAdvertisements],
         callback: [callback, setCallBack],
         slug: [slug, setSlug], 
@@ -63,6 +64,12 @@ const removeEmptyParams=(params)=>{
       }
       return params
 }
+
+
+export const getAdsWithoutFilters = async () => {
+    return await axios.get(`/ad/all_advertisements`)
+}
+
 export const getAdInfoAPI = async (id) => {
     return await axios.get(`/ad/ad_info/${id}`)
 }

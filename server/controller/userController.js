@@ -211,13 +211,10 @@ const userController = {
 
             else if (user.role === 2){// user is customer
 
-                if(req.params.id){ // id is present   
-                    return res.status(400).json({error:{code: res.statusCode, msg: 'You are not authorized to access this resource'}, data:null}) 
-                }
-                //id is not present, update signed in user info
-
-                const {name, contact, password, province, city, ads, favourites, status} = req.body;
-                const updatedUser = await User.findOneAndUpdate({_id: req.user.id}, {name, contact, password, province, city, ads, favourites,status}, {new: true});
+           
+                const {name, contact, password, province, city, ads, favourites, status,cart} = req.body;
+                console.log(name, contact, password, province, city, ads, favourites, status,cart)
+                const updatedUser = await User.findOneAndUpdate({_id: req.user.id}, {name, contact, password, province, city, ads, favourites,status,cart}, {new: true});
                 if (!updatedUser) return res.status(404).json({error:{code: res.statusCode, msg: 'User not updated'}, data: null}) 
 
                 return res.status(200).json({error:{code: null, msg: null}, data: "User Information has been updated"}) 

@@ -30,8 +30,6 @@ const categoryController = {
     //create category
     createCat: async (req, res) => {
         try {
-
-            let images=[]
             const user = await User.findById(req.user.id);
             if (!user)
                 return res.status(404).json({
@@ -47,24 +45,17 @@ const categoryController = {
                     data: null,
                 });
             } else {
+                 const name= req.body.name
+             
                 
-                if(!req.body.name){
-                    return res.status(400).json({error:{code: res.statusCode, msg: 'Category name is required'}, data: null}) 
+                if (Object.keys(name).length === 0) {
+                    return res.status(404).json({ error: { code: res.statusCode, msg: 'Input data missing' }, data: null })
+    
+                 }
 
-                }
-                let image='';
-                await cloudinary.uploader.upload(req.file.path, { folder: "Online-Exchange-App" }, async (err, result) => {
-                    if (err) reject(res.status(404).json({ error: { code: res.statusCode, msg: error.msg }, data: null }))
-
-                    //removeTmp(file.tempFilePath)
-                    image=({ url: result.url, public_id: result.public_id })
-                    console.log(image)
-                })
-                
                 const categoryObj = new Category({
                     name: req.body.name,
-                    slug: slugify(req.body.name),
-                    image: image
+                    slug: slugify(req.body.name)
                 });
     
                 if (req.body.parentId) {
@@ -205,9 +196,15 @@ const categoryController = {
             /* const product = await Product.findOne({brand: req.params.id})
             if(product) return res.status(400).json({
                 msg: "Please delete all products with a relationship."
-            }) */
+            }) */ 
+            const {value, name, parentId} = req.body
+
+            if (Object.keys(value).length === 0) {
+                return res.status(404).json({ error: { code: res.statusCode, msg: 'Input data missing' }, data: null })
+
+            }
                 else{
-            const {value,name,parentId} = req.body
+           
             const savedCat = await Category.findOneAndDelete(
                 { _id: value},
                 { new: true }

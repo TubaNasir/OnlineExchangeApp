@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import { GlobalState } from '../../GlobalState';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { loginAPI } from '../../api/UserAPI';
-
+import  Toast from '../utilities/ToastMsg'
 function Login() {
     
     const state = useContext(GlobalState)
@@ -26,10 +26,11 @@ function Login() {
             loginAPI({...user})
             .then(res => {
                 console.log(res.data)
-                localStorage.setItem('firstLogin', true)
+                localStorage.setItem('firstLogin', true);
                 alert("Logged in successfully")  
                 setToken(res.data.data.accessToken)      
                 window.location.href = '/'
+                {<Toast msg='Logged in' t={true}/>}
                 })
             .catch(err =>  {
                 console.log(err.response.data)
