@@ -1,12 +1,22 @@
 import React, { useContext, useState } from 'react'
 import { GlobalState } from '../../GlobalState'
+import {useNavigate} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Cart from './cart.svg'
+<<<<<<< HEAD
 import { logoutAPI } from '../../api/UserAPI'
 import { IoMdSearch } from 'react-icons/io'
+=======
+import {logoutAPI} from '../../api/UserAPI'
+import {IoMdSearch} from 'react-icons/io'
+import {FaPlusCircle, FaShoppingCart} from 'react-icons/fa'
+import {Link} from 'react-router-dom'
+
+>>>>>>> 7bf59b51e3cde78b04ab248bae3c2b7ebb65fdb0
 import './Header.css'
 
 function Header() {
+    let navigate= useNavigate()
     const state = useContext(GlobalState)
     const [dropdown, setDropdown] = useState(false)
 
@@ -15,8 +25,6 @@ function Header() {
     const [isAdmin, setIsAdmin] = state.UserAPI.isAdmin
     const [user] = state.UserAPI.user
     const [search, setSearch] = state.AdvertisementAPI.search
-
-
 
 
     const router = () => {
@@ -29,6 +37,7 @@ function Header() {
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </span>
                 </form> */}
+<<<<<<< HEAD
                         <div className='searchBar-wrap'>
                             <IoMdSearch className='searchIcon' />
                             <input
@@ -51,6 +60,26 @@ function Header() {
 
                 </>
             )
+=======
+                <div className='searchBar-wrap'>
+                    <IoMdSearch className='searchIcon'/>
+                    <input 
+                    type='text'
+                    placeholder='search'
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}/>
+                       
+                      
+                </div>
+                </li>
+                <span>                       
+              <Link to="/post_ad"><FaPlusCircle className ='icon' size={30} /></Link>
+                </span>
+                <span><Link to='/cart'><FaShoppingCart className='header_icon'/></Link></span>
+            
+            </>
+        )
+>>>>>>> 7bf59b51e3cde78b04ab248bae3c2b7ebb65fdb0
         }
         else if (isAdmin) {
             return (
@@ -81,9 +110,15 @@ function Header() {
             )
         }
 
+<<<<<<< HEAD
         else {
             if (isAdmin) {
                 const menuClass = `dropdown-menu${dropdown ? "show" : ""}`
+=======
+        else{
+            if(isAdmin){
+                const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
+>>>>>>> 7bf59b51e3cde78b04ab248bae3c2b7ebb65fdb0
                 return (
                     <>
                         <li className="nav-item dropdown ">
@@ -102,8 +137,13 @@ function Header() {
 
                 )
             }
+<<<<<<< HEAD
             else if (!isAdmin) {
                 const menuClass = `dropdown-menu${dropdown ? "show" : ""}`
+=======
+            else if (!isAdmin){
+                const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
+>>>>>>> 7bf59b51e3cde78b04ab248bae3c2b7ebb65fdb0
                 return (
                     <>
                         <li className="nav-item dropdown ">

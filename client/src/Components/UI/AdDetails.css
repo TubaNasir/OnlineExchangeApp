@@ -1,0 +1,118 @@
+
+.list{
+    height: 8rem;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.a{
+position: relative;
+overflow: hidden;
+cursor: pointer;
+user-select: none;
+border: 1px solid rgba(0,47,52,.2);
+border-radius: 10px;
+height: 100%;
+width: 100%;
+display: flex;
+}
+
+
+.image{
+    margin: 0;
+    position: relative;
+    background-color: #222;
+    width: 25%;
+    height: 100%;
+    border:none;
+    border-right: 0.1rem solid rgba(0,47,52,.2);
+    display: block;
+}
+
+
+.img1{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.ad_details{
+    border-left: 0.5rem solid #ffce32;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 1.075rem .8rem 1.6rem;
+}
+
+.details1 {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: auto;
+    position: relative;
+    line-height: 1.8rem;
+}
+
+.name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #002f34;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    width: 85%;
+    white-space: unset;
+    display: -webkit-inline-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.price_div{
+    margin: 0.5rem 0 ;
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.favourite{
+    height: 2.0rem;
+    width: 2.0rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.favourite_icon_div{
+    display: flex;
+}
+
+.favourite_icon{   
+    width: 100%;
+    height: 100%;
+}
+
+.location{
+    line-height:1.6rem;
+    color: #61797d;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: auto 0;
+}
+
+.loc{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-content: space-between;
+}
+.city{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

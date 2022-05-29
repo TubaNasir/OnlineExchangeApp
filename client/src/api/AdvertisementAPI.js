@@ -2,11 +2,12 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 
 export default function AdvertisementAPI(){
+    const [allAdvertisements, setAllAdvertisements] = useState([])
     const [advertisements, setAdvertisements] = useState([])
     const [callback, setCallBack] = useState(false)
     const [slug, setSlug] = useState()
     const [search, setSearch] =useState('')
-    const [price, setPrice] =useState([0,100000])
+    const [price, setPrice] =useState([0,1000000])
     const[sortPrice, setSortPrice] = useState('')
     const [sortAds, setSortAds] = useState('')
   const [city, setCity] = useState('')
@@ -14,14 +15,16 @@ export default function AdvertisementAPI(){
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(3)
   const [count, setCount] = useState(0)
+  const [status, setStatus] = useState('')
+  
     
-/*     useEffect(() => {
+     useEffect(() => {
         const getAdvertisements = async () => {
             try {
-                await axios.get(`/ad/all_ads`)
+                await axios.get(`/ad/all_advertisements`)
                     .then(res => {
                         console.log(res.data)
-                        setAdvertisements(res.data.data)
+                        setAllAdvertisements(res.data.data)
                     })
                     .catch(err => {
                         console.log(err.response.data)
@@ -33,9 +36,10 @@ export default function AdvertisementAPI(){
             }
         }
         getAdvertisements()
-    }, [callback]) */
+    }, [callback]) 
 
     return{
+        allAdvertisements: [allAdvertisements, setAllAdvertisements],
         advertisements: [advertisements, setAdvertisements],
         callback: [callback, setCallBack],
         slug: [slug, setSlug], 
@@ -47,33 +51,52 @@ export default function AdvertisementAPI(){
         sortAds: [sortAds, setSortAds],
         page: [page, setPage],
         limit: [limit, setLimit],
-        count: [count, setCount]
-        
+        count: [count, setCount],
+        status: [status,setStatus]
     }
+}
+
+const removeEmptyParams=(params)=>{
+      for (const key of Object.keys(params)) {
+        if (params[key] === "") {
+          delete params[key];
+        }
+      }
+      return params
+}
+
+
+export const getAdsWithoutFilters = async () => {
+    return await axios.get(`/ad/all_advertisements`)
 }
 
 export const getAdInfoAPI = async (id) => {
     return await axios.get(`/ad/ad_info/${id}`)
 }
 
-export const getAllAdsAPI = async (price,province,city,sortPrice,sortAds,page,limit) => {
-    return await axios.get(`/ad/all_ads?price[gte]=${price[0]}&price[lte]=${price[1]}&${city}&${province}&${sortPrice}&${sortAds}&page=${page}&limit=${limit}`)
+export const getAllAdsAPI = async (price,province,city,sortPrice,sortAds,page,limit, search,status) => {
+    const params1 = {'search': search,'province': province,'city': city,'sort': sortPrice,'sort': sortAds,'page': page,'limit': limit,'status': status};
+    return await axios.get(`/ad/all_ads?price[gte]=${price[0]}&price[lte]=${price[1]}`,{params: removeEmptyParams(params1)})
 }
 
-export const countAdsAPI = async (price,province,city) => {
-    return await axios.get(`/ad/count_ads?price[gte]=${price[0]}&price[lte]=${price[1]}&${city}&${province}}`)
+export const countAdsAPI = async (price,province,city,search,status) => {
+    const params1 = {'search': search,'province': province,'city': city,'status': status};
+    return await axios.get(`/ad/count_ads?price[gte]=${price[0]}&price[lte]=${price[1]}`,{params: removeEmptyParams(params1)})
 }
 
-export const countAdsbySlugAPI = async (slug,price,province,city) => {
-    return await axios.get(`/ad/count_ads?${slug}price[gte]=${price[0]}&price[lte]=${price[1]}&${city}&${province}}`)
+export const countAdsbySlugAPI = async (slug,price,province,city,search,status) => {
+    const params1 = {'search': search,'province': province,'city': city,'status': status};
+    return await axios.get(`/ad/count_ads/${slug}?price[gte]=${price[0]}&price[lte]=${price[1]}`,{params: removeEmptyParams(params1)})
 }
 
-export const getAllAdsbySlugAPI = async (slug, price, city, province,sortPrice,sortAds,page,limit) => {
-    return await axios.get( `/ad/all_ads/${slug}?price[gte]=${price[0]}&price[lte]=${price[1]}&city=${city}&province=${province}&${sortPrice}&${sortAds}&page=${page}&limit=${limit}`)
+export const getAllAdsbySlugAPI = async (slug, price, province,city,sortPrice,sortAds,page,limit,search,status) => {
+    const params1 = {'search': search,'province': province,'city': city,'sort': sortPrice,'sort': sortAds,'page': page,'limit': limit,'status': status};
+    return await axios.get(`/ad/all_ads/${slug}?price[gte]=${price[0]}&price[lte]=${price[1]}`,{params: removeEmptyParams(params1)})
 }
 
 export const postAdAPI = async (ad, token) => {
-    return await axios.get(`/ad/post_ad`, ad,  {
+    console.log('in method')
+    return await axios.post(`/ad/post_ad`, ad,  {
         headers: {Authorization: token}
     })
 }

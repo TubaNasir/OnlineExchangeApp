@@ -9,10 +9,9 @@ const fileUpload = require("express-fileupload")
 const app = express()
 app.use(express.json())
 app.use(cookieparser())
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(fileUpload({
-    useTempFiles: true
-}))
+
 
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, {

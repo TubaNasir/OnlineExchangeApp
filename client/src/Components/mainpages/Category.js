@@ -1,21 +1,21 @@
 import React, { useState, useContext } from 'react'
 import { GlobalState } from '../../GlobalState'
 import { Container, Row, Col, Modal, Button, Form} from 'react-bootstrap'
-import { uploadImagee, createCategory, updateCategoryAPI, deleteCategoryAPI } from '../../api/CategoryAPI'
+import { createCategory, updateCategoryAPI, deleteCategoryAPI } from '../../api/CategoryAPI'
 import CheckboxTree from 'react-checkbox-tree'
 import 'react-checkbox-tree/lib/react-checkbox-tree.css'
 import { IoIosCheckboxOutline, IoIosCheckbox, IoMdArrowDropdown, IoMdArrowDropright, IoIosAdd, IoMdCreate, IoIosTrash } from "react-icons/io";
 import '../UI/Category.css'
+const FormData = require('form-data');
+
 
 function Category() {
-
     const state = useContext(GlobalState)
-    const uploadImageAPI = state.CategoryAPI.uploadImage
     const [categories] = state.CategoryAPI.categories
     const [token] = state.UserAPI.token
 console.log(categories)
     const [category, setCategory] = useState({
-        name: '', parentId: '', image: ''
+        name: '', parentId: ''
     })
 
     const [callback, setCallback] = state.CategoryAPI.callback
@@ -28,6 +28,7 @@ console.log(categories)
     const [checkedArray, setCheckedArray] = useState([]);
     const [expandedArray, setExpandedArray] = useState([]);
 
+    console.log(category)
 
 
     const handleEdit = () => {
@@ -47,7 +48,11 @@ console.log(categories)
     }
 
     const handleSubmit = () => {
-        createCategory({ ...category }, token)
+    let formData = new FormData();
+      formData.append('name', category.name);
+      formData.append('parentId', category.parentId);
+
+        createCategory(formData, token)
             .then(res => {
                 console.log(res.data)
                 setCallback(!callback)
@@ -58,6 +63,11 @@ console.log(categories)
             })
         
     }
+
+
+    const handleChange = (name) => (e) => {
+        setCategory({ ...category, [name]: e.target.value });
+      };
 
     const handleDelete = () => {
         checkedArray.forEach((array) =>
@@ -149,26 +159,7 @@ console.log(categories)
         return catList;
     }
 
-    const uploadImage = async e => {
-        e.preventDefault()
 
-        const file = e.target.files[0]
-
-        let formData = new FormData()
-        formData.append('file', file)
-
-        uploadImagee(formData, token)
-            .then(res => {
-                console.log(res.data)
-                setCategory({ ...category, image: res.data.data })
-            })
-            .catch(err => {
-                formData.delete('file')
-                console.log(err.response.data)
-                document.getElementById("file").value = null;
-                alert(err.response.data.error.msg)
-            })
-    }
 
 
     return (<>
@@ -245,8 +236,6 @@ console.log(categories)
                     }
                 </select>
                 <br />
-                <input type='file' id='file' name='categoryImage' onChange={uploadImage}>
-                </input>
                 {/* (e) => setCategoryImage(e.target.files[0]) */}
             </Modal.Body>
             <Modal.Footer>
@@ -267,7 +256,6 @@ console.log(categories)
                 <Row>
                     <Col><Form.Label>Category Name</Form.Label></Col>
                     <Col><Form.Label>Parent Category</Form.Label></Col>
-                    <Col><Form.Label>Image</Form.Label></Col>
                 </Row>
                 {checkedArray.length > 0 ?
                     checkedArray.map((item, index) =>
@@ -296,9 +284,7 @@ console.log(categories)
                                 </select>
                                 <br />
                             </Col>
-                            <Col>
-                                <input type='file' id='file' name='categoryImage' onChange={uploadImage}></input>
-                            </Col>
+                            
                         </Row>
 
                     ) : "No category selected"}

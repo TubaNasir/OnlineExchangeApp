@@ -1,7 +1,8 @@
-const router = require("express").Router();
 const Category = require("../model/categoryModel");
 const slugify = require("slugify");
 const User = require("../model/userModel");
+const cloudinary = require('../utils/cloudinary')
+const fs = require ('fs')
 
 function createCategory(categories, parentId = null) {
     const categoryList = [];
@@ -44,23 +45,22 @@ const categoryController = {
                     data: null,
                 });
             } else {
-
-                if(!req.body.name){
-                    return res.status(400).json({error:{code: res.statusCode, msg: 'Category name is required'}, data: null}) 
-
-                }
+                 const name= req.body.name
+             
+                
+                if (Object.keys(name).length === 0) {
+                    return res.status(404).json({ error: { code: res.statusCode, msg: 'Input data missing' }, data: null })
+    
+                 }
 
                 const categoryObj = new Category({
                     name: req.body.name,
-                    slug: slugify(req.body.name),
+                    slug: slugify(req.body.name)
                 });
     
                 if (req.body.parentId) {
                     categoryObj.parentId = req.body.parentId;
                 }
-                if (req.body.image) 
-                    categoryObj.image = req.body.image;
-                
 
                 const savedCat = await categoryObj.save();
                 if (!savedCat)
@@ -196,9 +196,15 @@ const categoryController = {
             /* const product = await Product.findOne({brand: req.params.id})
             if(product) return res.status(400).json({
                 msg: "Please delete all products with a relationship."
-            }) */
+            }) */ 
+            const {value, name, parentId} = req.body
+
+            if (Object.keys(value).length === 0) {
+                return res.status(404).json({ error: { code: res.statusCode, msg: 'Input data missing' }, data: null })
+
+            }
                 else{
-            const {value,name,parentId} = req.body
+           
             const savedCat = await Category.findOneAndDelete(
                 { _id: value},
                 { new: true }
@@ -226,3 +232,10 @@ const categoryController = {
 }
 
 module.exports = categoryController;
+
+const removeTmp = (path) =>{
+    console.log('error')
+    fs.unlink(path, err=>{
+        if(err) throw err;
+    })
+}
