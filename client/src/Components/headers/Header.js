@@ -1,17 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { GlobalState } from '../../GlobalState'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Cart from './cart.svg'
-import {logoutAPI} from '../../api/UserAPI'
-import {IoMdSearch} from 'react-icons/io'
-import {FaPlusCircle, FaShoppingCart} from 'react-icons/fa'
-import {Link} from 'react-router-dom'
+import { logoutAPI } from '../../api/UserAPI'
+import { IoMdSearch } from 'react-icons/io'
+import { FaPlusCircle, FaShoppingCart } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 import './Header.css'
 
 function Header() {
-    let navigate= useNavigate()
+    let navigate = useNavigate()
     const state = useContext(GlobalState)
     const [dropdown, setDropdown] = useState(false)
 
@@ -32,24 +31,24 @@ function Header() {
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </span>
                 </form> */}
-                <div className='searchBar-wrap'>
-                    <IoMdSearch className='searchIcon'/>
-                    <input 
-                    type='text'
-                    placeholder='search'
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}/>
-                       
-                      
-                </div>
-                </li>
-                <span>                       
-              <Link to="/post_ad"><FaPlusCircle className ='icon' size={30} /></Link>
-                </span>
-                <span><Link to='/cart'><FaShoppingCart className='header_icon'/></Link></span>
-            
-            </>
-        )
+                        <div className='searchBar-wrap'>
+                            <IoMdSearch className='searchIcon' />
+                            <input
+                                type='text'
+                                placeholder='search'
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)} />
+
+
+                        </div>
+                    </li>
+                    <span>
+                        <Link to="/post_ad"><FaPlusCircle className='icon' size={30} /></Link>
+                    </span>
+                    <span><Link to='/cart'><FaShoppingCart className='header_icon' /></Link></span>
+
+                </>
+            )
         }
         else if (isAdmin) {
             return (
@@ -80,8 +79,8 @@ function Header() {
             )
         }
 
-        else{
-            if(isAdmin){
+        else {
+            if (isAdmin) {
                 const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
                 return (
                     <>
@@ -101,7 +100,7 @@ function Header() {
 
                 )
             }
-            else if (!isAdmin){
+            else if (!isAdmin) {
                 const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
                 return (
                     <>
