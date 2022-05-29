@@ -3,16 +3,11 @@ import { GlobalState } from '../../GlobalState'
 import {useNavigate} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Cart from './cart.svg'
-<<<<<<< HEAD
-import { logoutAPI } from '../../api/UserAPI'
-import { IoMdSearch } from 'react-icons/io'
-=======
 import {logoutAPI} from '../../api/UserAPI'
 import {IoMdSearch} from 'react-icons/io'
 import {FaPlusCircle, FaShoppingCart} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 
->>>>>>> 7bf59b51e3cde78b04ab248bae3c2b7ebb65fdb0
 import './Header.css'
 
 function Header() {
@@ -37,30 +32,6 @@ function Header() {
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </span>
                 </form> */}
-<<<<<<< HEAD
-                        <div className='searchBar-wrap'>
-                            <IoMdSearch className='searchIcon' />
-                            <input
-                                type='text'
-                                placeholder='search'
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)} />
-
-
-                        </div>
-                    </li>
-
-
-                    <div className="cart-icon">
-                        <span>0</span>
-                        <a href="/cart">
-                            <img src={Cart} alt="" width="25" className="fast" />
-                        </a>
-                    </div>
-
-                </>
-            )
-=======
                 <div className='searchBar-wrap'>
                     <IoMdSearch className='searchIcon'/>
                     <input 
@@ -79,7 +50,6 @@ function Header() {
             
             </>
         )
->>>>>>> 7bf59b51e3cde78b04ab248bae3c2b7ebb65fdb0
         }
         else if (isAdmin) {
             return (
@@ -110,15 +80,9 @@ function Header() {
             )
         }
 
-<<<<<<< HEAD
-        else {
-            if (isAdmin) {
-                const menuClass = `dropdown-menu${dropdown ? "show" : ""}`
-=======
         else{
             if(isAdmin){
                 const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
->>>>>>> 7bf59b51e3cde78b04ab248bae3c2b7ebb65fdb0
                 return (
                     <>
                         <li className="nav-item dropdown ">
@@ -137,13 +101,8 @@ function Header() {
 
                 )
             }
-<<<<<<< HEAD
-            else if (!isAdmin) {
-                const menuClass = `dropdown-menu${dropdown ? "show" : ""}`
-=======
             else if (!isAdmin){
                 const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
->>>>>>> 7bf59b51e3cde78b04ab248bae3c2b7ebb65fdb0
                 return (
                     <>
                         <li className="nav-item dropdown ">
