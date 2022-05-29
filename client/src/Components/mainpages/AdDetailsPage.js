@@ -21,15 +21,32 @@ function AdDetailsPage() {
     const [advertisements] = state.AdvertisementAPI.advertisements
     const [categories] = state.CategoryAPI.categories
     const [token] = state.UserAPI.token
-    const params = useParams()
+    const {id} = useParams()
     const [adDetails, setAdDetails] = useState([])
     const [seller, setSeller] = useState([])
     const [allUsers] = state.UserAPI.allUsers
     const [user,setUser] = state.UserAPI.user
     const [isLogged] = state.UserAPI.isLogged
+    const [isAdmin] = state.UserAPI.isAdmin
     const [main, setMain] = useState([])
     const [sub, setSub] = useState([])
     const [subSub, setSubSub] = useState([])
+    const[isUserAd, setIsUserAd] = useState(false)
+
+
+    useEffect(() => {
+        const setAdUser = async () => {
+           var check =  user.ads?.every(item => {
+            return item !== adDetails._id
+        }); 
+        if(check)
+            setIsUserAd(false)
+            else
+            setIsUserAd(true)
+
+        }
+        setAdUser()
+    },[])
 
     const addToCart = async (e) => {
         e.preventDefault()
@@ -76,7 +93,7 @@ function AdDetailsPage() {
     {
       breakpoint: 1024,
       settings: {
-       slidesToShow: 2,
+       slidesToShow: 3,
       }
     },
     {
@@ -93,11 +110,11 @@ function AdDetailsPage() {
 
     useEffect(() => {
         const setAdvertisement = async () => {
-            console.log(params.id)
+            console.log(id)
             await advertisements.forEach(ad => {
 
                 //console.log(ad._id)
-                if (ad._id === params.id) {
+                if (ad._id === id) {
                     setAdDetails(ad)
                 }
             })
@@ -105,7 +122,7 @@ function AdDetailsPage() {
         }
         setAdvertisement();
 
-    }, [params.id, advertisements])
+    }, [id, advertisements])
 
     useEffect(() => {
         const setSellerDetails = async () => {
@@ -144,7 +161,7 @@ function AdDetailsPage() {
     }, [adDetails])
 
     console.log('main', main)
-    console.log('params', params.id)
+    console.log('params',id)
     console.log('ad', adDetails)
     console.log('seller', seller)
 
@@ -180,11 +197,12 @@ function AdDetailsPage() {
                                             <span className='extra_details'>
                                                 Member since {new Date(seller.createdAt).getFullYear()}
                                             </span>
-                                            <div className='chat'>
+                                            {!isAdmin ? <div className='chat'>
                                                 <button className='chat_button'>
                                                     <span>Message Seller</span>
                                                 </button>
-                                            </div>
+                                            </div>: null}
+                                            
                                         </div>
                                     </div>
                                 </a>
@@ -300,11 +318,12 @@ function AdDetailsPage() {
                             </div>
 
                         </div>
-                        <div className='chat'>
+                        {isAdmin || !isUserAd ? <div className='chat'>
                             <button onClick={addToCart} className='cart_button'>
                                 <span>Add to cart</span>
                             </button>
-                        </div>
+                        </div>: null}
+                        
                     </div>
                 </div>
                 <div className='relatedads_div'>
@@ -312,14 +331,6 @@ function AdDetailsPage() {
                         <span className='cat_head'>
                         Related Advertisements
                     </span>
-                    <span className='btn_span'>
-                        <button className='slider_btn' onCLick={sliderRef?.slickPrev}>
-                            <IoIosArrowBack />
-                        </button >
-                        <button className='slider_btn' onCLick={sliderRef?.slickNext}>
-                            <IoIosArrowForward />
-                        </button>
-                        </span>
                     </div>
                     
                     <div className='content'>
@@ -327,6 +338,7 @@ function AdDetailsPage() {
                         <Slider ref={setSliderRef} {...sliderSettings}>
                             {allAdvertisements.filter(adv => adv.categoryID===adDetails.categoryID).map((ad, index ) => (
                                 <div className='box_div' style={{width: '28rem'}}>
+                                    <Link id="ad" to={`/ad/${ad._id}`}>
                                     <article className='art'>
                                         <div className='cat_image_div'>
                                                 <img className='cat_img_div' src={ad.image[0].url}/>     
@@ -343,6 +355,7 @@ function AdDetailsPage() {
                                         </div>
 
                                     </article>
+                                    </Link>
 
                                 </div>
                                 

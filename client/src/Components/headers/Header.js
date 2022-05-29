@@ -43,10 +43,10 @@ function Header() {
                       
                 </div>
                 </li>
-                <span>                       
+                <div>                       
               <Link to="/post_ad"><FaPlusCircle className ='icon' size={30} /></Link>
-                </span>
-                <span><Link to='/cart'><FaShoppingCart className='header_icon'/></Link></span>
+                </div>
+                <div className='c'><Link to='/cart'><span className='cart_l'>{isLogged ? user.cart.length : 0}</span><FaShoppingCart className='header_icon' size={25} /></Link></div>
             
             </>
         )
@@ -110,7 +110,7 @@ function Header() {
                             {user.name}
                             </div>
                         <div className={menuClass} aria-labelledby="navbarDropdown">
-                            <a className="dropdown-item" href="/">My Profile</a>
+                            <a className="dropdown-item" href="/profile">My Profile</a>
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="/">My Ads</a>
                             <div className="dropdown-divider"></div>
