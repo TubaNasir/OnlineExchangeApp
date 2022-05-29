@@ -31,6 +31,11 @@ function Header() {
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </span>
                 </form> */}
+
+                        {/* <div className='img'>
+                            <img src={user.image} alt="" />
+                        </div>
+ */}
                         <div className='searchBar-wrap'>
                             <IoMdSearch className='searchIcon' />
                             <input

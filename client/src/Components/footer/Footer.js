@@ -1,15 +1,18 @@
 import React, { useState, useContext } from 'react'
+import { GlobalState } from '../../GlobalState'
 import { Link } from 'react-router-dom'
+import { responsiveFontSizes } from '@material-ui/core'
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 
 
 function Footer() {
+    const value = useContext(GlobalState)
     return (
         <footer className='footer'>
             <div className='container'>
-                <div className='row'>
+                <div className='rows'>
                     <div className='footer-col'>
                         <h4>Contact US</h4>
                         <ul>

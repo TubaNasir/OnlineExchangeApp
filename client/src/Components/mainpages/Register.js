@@ -6,7 +6,7 @@ import { registerAPI } from '../../api/UserAPI';
 
 function Register() {
     const [user, setUser] = useState({
-        name: '', email: '', password: '', gender: '', contact: '', city: '', province: '', role: 2
+        name: '', email: '', password: '', gender: '', contact: '', city: '', province: '', role: 2, image: ''
     })
 
     console.log(user.name, user.email, user.password, user.gender, user.contact, user.city, user.province, user.role)
@@ -116,38 +116,46 @@ function Register() {
                                 className='form-control form-group' />
                         </div>
 
-                        <div className='form-group mb-3'>
-                            <text>
-                                City
-                            </text>
-                            <input type='text'
-                                //placeholder='City'
-                                name='city'
-                                value={user.city}
-                                required
-                                onChange={onChangeInput}
-                                className='form-control form-group' />
-                        </div>
+                        <div className='Col-sm-12'>
 
-                        <div className='form-group mb-3'>
-                            <text>
-                                Province
-                            </text>
-                            <input type='text'
-                                //placeholder='Province'
-                                name='province'
-                                value={user.province}
-                                required
-                                onChange={onChangeInput}
-                                className='form-control form-group' />
-                        </div>
+                            <div className='form-group col-md-6 mb-3'>
+                                <label className='mb-2'>Province</label>
+                                <select name='province' className='form-control' value={user.province} onChange={onChangeInput} >
+                                    <option>--Select a Province--</option>
+                                    <option>Sindh</option>
+                                    <option>Punjab</option>
+                                    <option>Balochistan</option>
+                                    <option>KPK</option>
+                                </select>
 
-                        <div className='row'>
-                            <div className='col-md-8 form-group mb-3'>
-                                <label>Image</label>
-                                <input type="file" name='image' value={user.image} onChange={onChangeInput} className='form-control form-group' />
                             </div>
+
+                            <div className='form-group col-md-6 mb-3'>
+                                <label className='mb-2'>City</label>
+                                <select name='city' className='form-control' value={user.city} onChange={onChangeInput}>
+                                    <option>--Select a City--</option>
+                                    <option>Karachi</option>
+                                    <option>Lahore</option>
+                                    <option>Islamabad</option>
+                                    <option>Hyderabad</option>
+                                    <option>Multan</option>
+                                    <option>Peshawar</option>
+                                    <option>Quetta</option>
+                                    <option>Sukkar</option>
+                                </select>
+                            </div>
+
+
                         </div>
+
+
+
+
+                        <div className='col-md-8 form-group mb-3'>
+                            <label>Image</label>
+                            <input type="file" name='image' value={user.image} onChange={onChangeInput} className='form-control form-group' />
+                        </div>
+
 
                         <div className='form-group mb-3'>
                             <button type='submit'
