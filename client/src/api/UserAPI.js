@@ -100,7 +100,8 @@ export default function UserAPI() {
     token: [token, setToken],
     allUsers: [allUsers,setAllUsers],
     cart: [cart, setCart],
-    userCartDetails: [userCartDetails, setUserCartDetails]
+    userCartDetails: [userCartDetails, setUserCartDetails],
+    seller: [seller, setSeller]
   }
 }
 

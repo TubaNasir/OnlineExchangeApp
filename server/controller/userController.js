@@ -195,13 +195,13 @@ const userController = {
         try{
             const user = await User.findById(req.user.id)
             if(!user) return res.status(400).json({msg: "User does not exist."})
-const {user1} = req.body
-            const ad = await User.findOneAndUpdate({_id: req.user.id}, { user1
+console.log('cart',req.body)
+            const u = await User.findOneAndUpdate({_id: req.user.id}, { cart: req.body.cart
             }, {new: true})
 
-            if (!ad) return res.status(404).json({error:{code: res.statusCode, msg: 'User not updated'}, data: null}) 
+            if (!u) return res.status(404).json({error:{code: res.statusCode, msg: 'User not updated'}, data: null}) 
 
-            return res.status(200).json({error:{code: null, msg: null}, data: ad}) 
+            return res.status(200).json({error:{code: null, msg: null}, data: u}) 
 
         }
         catch (error) {
