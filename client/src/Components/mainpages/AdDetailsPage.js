@@ -10,7 +10,6 @@ import { BsHeart } from 'react-icons/bs'
 import moment from 'moment'
 import Slider from 'react-slick'
 import { updateUserInfoAPI , updateCartAPI} from '../../api/UserAPI'
-import { updateUserInfoAPI } from '../../api/UserAPI'
 import SellerProfile from './SellerProfile'
 
 import 'slick-carousel/slick/slick.css'

@@ -46,7 +46,6 @@ export default function UserAPI() {
                     refreshToken()
                 }
        
-            refreshToken()
     
         const getAllUsers = async () => {
             await axios.get('/user/all_users')
