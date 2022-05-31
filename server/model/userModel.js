@@ -12,12 +12,16 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     contact: {
-      type: Number,
-      required: true,
-  },
+        type: Number,
+        required: true,
+    },
     password: {
         type: String,
         required: true
+    },
+    image: {
+        type: Object,
+        default: "https://www.kindpng.com/picc/m/421-4212287_default-avatar-male-user-icon-hd-png-download.png"
     },
     gender: {
         type: String,
@@ -28,11 +32,11 @@ const userSchema = new mongoose.Schema({
         default: 2
     },
     province: {
-    	type: String,
+        type: String,
         required: true
     },
     city: {
-    	type: String,
+        type: String,
         required: true
     },
     ads: {
@@ -47,7 +51,7 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    status:{
+    status: {
         type: String,
         enum: ['active', 'unactive', 'banned', 'suspended', 'deleted'],
         default: 'active'

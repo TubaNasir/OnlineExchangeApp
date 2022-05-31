@@ -10,6 +10,8 @@ import { BsHeart } from 'react-icons/bs'
 import moment from 'moment'
 import Slider from 'react-slick'
 import { updateUserInfoAPI , updateCartAPI} from '../../api/UserAPI'
+import { updateUserInfoAPI } from '../../api/UserAPI'
+import SellerProfile from './SellerProfile'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -21,18 +23,18 @@ function AdDetailsPage() {
     const [advertisements] = state.AdvertisementAPI.advertisements
     const [categories] = state.CategoryAPI.categories
     const [token] = state.UserAPI.token
-    const {id} = useParams()
+    const { id } = useParams()
     const [adDetails, setAdDetails] = useState([])
-    const [seller, setSeller] = useState([])
+    const [seller, setSeller] = state.UserAPI.seller
     const [allUsers] = state.UserAPI.allUsers
-    const [user,setUser] = state.UserAPI.user
+    const [user, setUser] = state.UserAPI.user
     const [isLogged] = state.UserAPI.isLogged
     const [isAdmin] = state.UserAPI.isAdmin
     const[cart,setCart] = state.UserAPI.cart
     const [main, setMain] = useState([])
     const [sub, setSub] = useState([])
     const [subSub, setSubSub] = useState([])
-    const[isUserAd, setIsUserAd] = useState(false)
+    const [isUserAd, setIsUserAd] = useState(false)
 
 
     useEffect(() => {
@@ -67,7 +69,7 @@ function AdDetailsPage() {
 
         if (!isLogged) return alert("Please login to continue buying")
 
-        var check =  user.cart?.every(item => {
+        var check = user.cart?.every(item => {
             return item !== adDetails._id
         });
 
@@ -89,7 +91,7 @@ function AdDetailsPage() {
             
         }
 
-        else{
+        else {
             alert('Product already in cart')
         }
     }
@@ -105,20 +107,20 @@ function AdDetailsPage() {
         slidesToScroll: 9,
         infinite: false,
 
-         responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-       slidesToShow: 3,
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-       slidesToShow: 1,
-      }
-     }
-  ]
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
     }
 
     //const [loading, setLoading] = useState(true)
@@ -177,7 +179,7 @@ function AdDetailsPage() {
     }, [adDetails])
 
     console.log('main', main)
-    console.log('params',id)
+    console.log('params', id)
     console.log('ad', adDetails)
     console.log('seller', seller)
 
@@ -205,11 +207,14 @@ function AdDetailsPage() {
                                 <div className='cat_head'>
                                     <span>Seller Details</span>
                                 </div>
-                                <a href='#'>
+
+
+                                <Link id="seller" to={`/sellerprofile`}><ul className='list'></ul>
                                     <div className='seller_info'>
                                         <img className='seller_img' alt='' />
                                         <div className='seller_name'>
                                             <span className='sname'>{seller.name}</span>
+
                                             <span className='extra_details'>
                                                 Member since {new Date(seller.createdAt).getFullYear()}
                                             </span>
@@ -217,14 +222,16 @@ function AdDetailsPage() {
                                                 <button className='chat_button'>
                                                     <span>Message Seller</span>
                                                 </button>
-                                            </div>: null}
-                                            
+                                            </div> : null}
+
                                         </div>
                                     </div>
-                                </a>
+                                </Link>
+
 
                             </div>
                         </div>
+
                     </div>
                     <div className='second_col'>
                         <div className='details_div'>
@@ -345,36 +352,36 @@ function AdDetailsPage() {
                 <div className='relatedads_div'>
                     <div className='hdiv'>
                         <span className='cat_head'>
-                        Related Advertisements
-                    </span>
+                            Related Advertisements
+                        </span>
                     </div>
-                    
-                    <div className='content'>
-                        
-                        <Slider ref={setSliderRef} {...sliderSettings}>
-                            {allAdvertisements.filter(adv => adv.categoryID===adDetails.categoryID).map((ad, index ) => (
-                                <div className='box_div' style={{width: '28rem'}}>
-                                    <Link id="ad" to={`/ad/${ad._id}`}>
-                                    <article className='art'>
-                                        <div className='cat_image_div'>
-                                                <img className='cat_img_div' src={ad.image[0].url}/>     
-                                        </div>
-                                        <div className='cat_details_div'>
-                                            <div className='cat_desc_div'>
-                                                <div className='cat_name'>{ad.name}</div>
-                                                <div className='cat_price'>Rs.{ad.price}</div>
-                                            </div>
-                                            <div className='cat_extra_div'>
-                                                <span>{ad.city}</span>
-                                                <span>{moment(ad.createdAt).fromNow()}</span>
-                                            </div>
-                                        </div>
 
-                                    </article>
+                    <div className='content'>
+
+                        <Slider ref={setSliderRef} {...sliderSettings}>
+                            {allAdvertisements.filter(adv => adv.categoryID === adDetails.categoryID).map((ad, index) => (
+                                <div className='box_div' style={{ width: '28rem' }}>
+                                    <Link id="ad" to={`/ad/${ad._id}`}>
+                                        <article className='art'>
+                                            <div className='cat_image_div'>
+                                                <img className='cat_img_div' src={ad.image[0].url} />
+                                            </div>
+                                            <div className='cat_details_div'>
+                                                <div className='cat_desc_div'>
+                                                    <div className='cat_name'>{ad.name}</div>
+                                                    <div className='cat_price'>Rs.{ad.price}</div>
+                                                </div>
+                                                <div className='cat_extra_div'>
+                                                    <span>{ad.city}</span>
+                                                    <span>{moment(ad.createdAt).fromNow()}</span>
+                                                </div>
+                                            </div>
+
+                                        </article>
                                     </Link>
 
                                 </div>
-                                
+
                             ))}
                         </Slider>
                     </div>

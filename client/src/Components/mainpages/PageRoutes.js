@@ -1,6 +1,6 @@
-import React,  {useContext} from 'react';
+import React, { useContext } from 'react';
 import { GlobalState } from '../../GlobalState'
-import {Routes, Route, Link,Navigate} from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 //import PrivateRoute from './PrivateRoute.ts';
 import Register from './Register';
 import Login from './Login';
@@ -16,13 +16,16 @@ import Cart from './Cart'
 import AdDetailsPage from './AdDetailsPage'
 import Checkout from './Checkout'
 import AdvertisementsFiltered from './AdvertisementsFiltered';
+import Msg from './Msg'
+import SellerProfile from './SellerProfile'
+import UserDetails from './UserDetails'
 
 
 
 function PageRoutes() {
 
   const state = useContext(GlobalState)
-  
+
   const [isLogged, setIsLogged] = state.UserAPI.isLogged
   const [isAdmin, setIsAdmin] = state.UserAPI.isAdmin
 
@@ -42,6 +45,22 @@ function PageRoutes() {
         <Route path='/ad/:id' exact element={<AdDetailsPage/>}/>
         <Route path="/post_ad" exact element={isLogged && !isAdmin ?  <PostAd/> : <Navigate to='/login'/>}/>
         <Route path="/edit_ad/:id" exact element={isLogged && !isAdmin ?  <PostAd/> : null}/>
+
+      <Route path="/login" exact element={<Login />} />
+      <Route path="/register" exact element={<Register />} />
+      <Route path="/" exact element={isAdmin ? <AdminHomepage /> : <Advertisements />} />
+      <Route path="/:slug" exact element={isAdmin ? <AdminHomepage /> : <Advertisements />} />
+      <Route path="/users" exact element={<Users />} />
+      <Route path="/orders" exact element={<Orders />} />
+      <Route path="/cart" exact element={<Cart />} />
+      <Route path="/profile" exact element={<Profile />} />
+      <Route path="/category" exact element={<Category />} />
+      <Route path="/category" exact element={<Category />} />
+      <Route path='/ad/:id' exact element={<AdDetailsPage />} />
+      <Route path="/post_ad" exact element={isLogged && !isAdmin ? <PostAd /> : <Navigate to='/login' />} />
+      <Route path="/edit_ad/:id" exact element={isLogged && !isAdmin ? <PostAd /> : null} />
+      <Route path="/userdetails" exact element={<UserDetails />} />
+      <Route path="/sellerprofile" exact element={<SellerProfile />} />
     </Routes>
   )
 }

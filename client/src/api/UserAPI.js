@@ -1,11 +1,12 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 let timer = null
 
 export default function UserAPI() {
     const [isLogged, setIsLogged] = useState(false)
-    const [isAdmin, setIsAdmin] = useState(false)    
+    const [isAdmin, setIsAdmin] = useState(false)
     const [user, setUser] = useState([])
+    const [seller, setSeller] = useState([])
     const [token, setToken] = useState(false)
     const [allUsers, setAllUsers] = useState([])
     const [userCallback, setUserCallback] = useState(false)
@@ -14,9 +15,9 @@ export default function UserAPI() {
     console.log('token', token)
     console.log('logged', isLogged)
     console.log(localStorage.getItem('firstLogin'))
-        const firstLogin = localStorage.getItem('firstLogin')
+    const firstLogin = localStorage.getItem('firstLogin')
 
-    useEffect(() => { 
+    useEffect(() => {
         console.log('login')
         
             if (firstLogin) {
@@ -45,23 +46,25 @@ export default function UserAPI() {
                     refreshToken()
                 }
        
-                const getAllUsers = async () => {
-                    await axios.get('/user/all_users')
-                    .then(res => {
-                        console.log(res.data)
-                        setAllUsers(res.data.data)
-                    })
-                    .catch(err => {
-                        console.log(err.response.data)
-                        alert(err.response.data.error.msg)
+            refreshToken()
+    
+        const getAllUsers = async () => {
+            await axios.get('/user/all_users')
+                .then(res => {
+                    console.log(res.data)
+                    setAllUsers(res.data.data)
+                })
+                .catch(err => {
+                    console.log(err.response.data)
+                    alert(err.response.data.error.msg)
 
-                    })
-                }
-                getAllUsers()
-    },[])
-
-    useEffect(() =>{
-        if (token){
+                })
+        }
+        getAllUsers()
+        }, [])
+    
+    useEffect(() => {
+        if (token) {
             const getUser = async () => {
                 try {
                     await axios.get(`/user/user_info`, {
@@ -77,14 +80,14 @@ export default function UserAPI() {
                         console.log(err.response.data)
                         alert(err.response.data.error.msg)
 
-                    })
+                        })
 
                 } catch (err) {
                     alert(err.response.data.msg)
                 }
             }
             getUser()
-            }
+        }
 
             else{
                 setIsLogged(false)
@@ -106,11 +109,11 @@ export const loginAPI = async (user) => {
     return await axios.post("/user/login", user)
 }
 
-export const registerAPI = async (user)  => {
+export const registerAPI = async (user) => {
     return await axios.post("/user/register", user)
 }
 
-export const logoutAPI = async ()  => {
+export const logoutAPI = async () => {
     return await axios.get('/user/logout')
 }
 
@@ -118,17 +121,17 @@ export const allUsersAPI = async () => {
     return await axios.get('/user/all_users')
 }
 
-export const userInfoAPI = async (id,token) => {
+export const userInfoAPI = async (id, token) => {
     console.log('sellerid', id)
-    return await axios.get(`/user/user_info/${id}`,  {
-    headers: {Authorization: token}
-})
+    return await axios.get(`/user/user_info/${id}`, {
+        headers: { Authorization: token }
+    })
 }
 
-export const updateUserInfoAPI = async (user,token) => {
+export const updateUserInfoAPI = async (user, token) => {
     return await axios.patch(`/user/update_user_info`, user, {
-    headers: {Authorization: token}
-})
+        headers: { Authorization: token }
+    })
 }
 
 export const updateCartAPI = async (cart,token) => {
