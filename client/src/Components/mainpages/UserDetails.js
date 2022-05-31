@@ -21,6 +21,8 @@ function UserDetails() {
                         <TableCell>Full Name</TableCell>
                         <TableCell>Gender</TableCell>
                         <TableCell>Location</TableCell>
+                        <TableCell>Gen</TableCell>
+
                     </TableRow>
                 </TableHead>
                 <TableBody>
