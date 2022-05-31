@@ -29,6 +29,7 @@ const advertisementSchema = new mongoose.Schema({
     },
     status:{
         type: String,
+        default: 'active',
         enum: ['active', 'toBeApproved','banned', 'unactive','sold']
     },
     area:{

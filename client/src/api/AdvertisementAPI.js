@@ -75,22 +75,22 @@ export const getAdInfoAPI = async (id) => {
 }
 
 export const getAllAdsAPI = async (price,province,city,sortPrice,sortAds,page,limit, search,status) => {
-    const params1 = {'search': search,'province': province,'city': city,'sort': sortPrice,'sort': sortAds,'page': page,'limit': limit,'status': status};
+    const params1 = {'name[regex]': search,'province': province,'city': city,'sort': sortPrice,'sort': sortAds,'page': page,'limit': limit,'status': status};
     return await axios.get(`/ad/all_ads?price[gte]=${price[0]}&price[lte]=${price[1]}`,{params: removeEmptyParams(params1)})
 }
 
 export const countAdsAPI = async (price,province,city,search,status) => {
-    const params1 = {'search': search,'province': province,'city': city,'status': status};
+    const params1 = {'name[regex]': search,'province': province,'city': city,'status': status};
     return await axios.get(`/ad/count_ads?price[gte]=${price[0]}&price[lte]=${price[1]}`,{params: removeEmptyParams(params1)})
 }
 
 export const countAdsbySlugAPI = async (slug,price,province,city,search,status) => {
-    const params1 = {'search': search,'province': province,'city': city,'status': status};
+    const params1 = {'name[regex]': search,'province': province,'city': city,'status': status};
     return await axios.get(`/ad/count_ads/${slug}?price[gte]=${price[0]}&price[lte]=${price[1]}`,{params: removeEmptyParams(params1)})
 }
 
 export const getAllAdsbySlugAPI = async (slug, price, province,city,sortPrice,sortAds,page,limit,search,status) => {
-    const params1 = {'search': search,'province': province,'city': city,'sort': sortPrice,'sort': sortAds,'page': page,'limit': limit,'status': status};
+    const params1 = {'name=[regex]': search,'province': province,'city': city,'sort': sortPrice,'sort': sortAds,'page': page,'limit': limit,'status': status};
     return await axios.get(`/ad/all_ads/${slug}?price[gte]=${price[0]}&price[lte]=${price[1]}`,{params: removeEmptyParams(params1)})
 }
 
@@ -107,8 +107,8 @@ export const uploadImageAPI = async (formData, token) => {
     })
 }
 
-export const updateAdAPI = async (id,token) => {
-    await axios.put(`/ad/update_ad/${id}`,   {
+export const updateAdAPI = async (id,ad,token) => {
+    await axios.put(`/ad/update_ad/${id}`, ad,  {
     headers: {Authorization: token}
 })
 }

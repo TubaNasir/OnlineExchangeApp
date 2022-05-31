@@ -582,8 +582,9 @@ const advertisementController = {
                     return res.status(400).json({ error: { code: res.statusCode, msg: 'Ad ID missing' }, data: null })
                 }
 
-                const status = req.body.status;
-                const ad = await Ad.findOneAndUpdate({ _id: req.params.id }, status, { new: true })
+                const adfrombody = req.body;
+                console.log(adfrombody)
+                const ad = await Ad.findOneAndUpdate({ _id: req.params.id }, adfrombody, { new: true })
                 if (!ad) return res.status(404).json({ error: { code: res.statusCode, msg: 'Ad not updated' }, data: null })
 
                 return res.status(200).json({ error: { code: null, msg: null }, data: ad })

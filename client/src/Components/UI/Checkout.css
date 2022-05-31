@@ -1,0 +1,27 @@
+.page{
+    margin: 0 200px
+}
+
+.checkout{
+    margin-top: 0.8rem;
+    flex: 1;
+    
+}
+
+.checkout_button{
+    width:100%;
+    color: #fff;
+    background-color: #eb4605;
+    border: 2px solid #fff;
+    font-weight: 500;
+    border-radius: 10px;
+    height: 48px;
+    max-height: 100%;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+
+}

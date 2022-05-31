@@ -38,7 +38,7 @@ background-color: #f3f3f2;
 }
 
 .ad_details{
-    border-left: 0.5rem solid #ffce32;
+    border-left: 0.5rem solid #f8510e;
     height: 40%;
     display: flex;
     flex-direction: column;
@@ -96,6 +96,32 @@ background-color: #f3f3f2;
     height: 100%;
 }
 
+.delete{
+    height: 1.0rem;
+    width: 1.0rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: rgb(183, 10, 10);
+}
+.tag{
+    bottom: 0.8rem;
+    left: 0.8rem;
+    position: absolute
+}
+
+.span_tag{
+    font-size:0.6rem;
+    color:white;
+    background-color: #eb4605;
+    padding: 0.4rem 0.4rem;
+    border-radius: 4px;
+    user-select: none;
+    line-height: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+}
 .location{
     line-height:1.6rem;
     color: #61797d;

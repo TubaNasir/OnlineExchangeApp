@@ -18,8 +18,10 @@ function Header() {
     const handleDropdown = () => {setDropdown(!dropdown)}
     const [isLogged, setIsLogged] = state.UserAPI.isLogged
     const [isAdmin, setIsAdmin] = state.UserAPI.isAdmin
-    const [user] = state.UserAPI.user
+    const [user,setUser] = state.UserAPI.user
     const [search, setSearch] = state.AdvertisementAPI.search
+
+    const [cart,setCart] = state.UserAPI.cart
 
 
     const router = () => {
@@ -46,8 +48,8 @@ function Header() {
                 <div>                       
               <Link to="/post_ad"><FaPlusCircle className ='icon' size={30} /></Link>
                 </div>
-                <div className='c'><Link to='/cart'><span className='cart_l'>{isLogged ? user.cart.length : 0}</span><FaShoppingCart className='header_icon' size={25} /></Link></div>
-            
+            <div className='c'><Link to='/cart'><span className='cart_l'>{cart.length}</span><FaShoppingCart className='header_icon' size={25} /></Link></div>
+
             </>
         )
         }
@@ -135,15 +137,16 @@ function Header() {
             .then(res => {
                 console.log(res.data)
                 localStorage.removeItem('firstLogin')
+                setUser(false)
                 setIsLogged(false)
                 setIsAdmin(false)
+                setCart([])
                 window.location.href = "/"
             })
             .catch(err => {
                 console.log(err.response.data.error.msg)
             })
     }
-
     return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a className="navbar-brand" href="/">X-CHANGE</a>

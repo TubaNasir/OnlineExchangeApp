@@ -6,6 +6,10 @@ const orderSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        email: {
+            type: String,
+            required: true,
+        },
         contact: {
             type: Number,
             required: true,
@@ -18,7 +22,7 @@ const orderSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        productID: {
+        item: {
             type: String,
             required: true,
         },

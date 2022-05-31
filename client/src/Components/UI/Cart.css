@@ -1,0 +1,47 @@
+.list{
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.total_div{
+    margin: 3rem;
+    padding:0 1rem;
+    font-size:1.5rem;
+    border-radius:5px;
+    font-weight: 600;
+    color: orangered;
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: rgb(236, 232, 230);
+}
+
+
+.cartt{
+    margin-top: 0.8rem;
+    flex: 1;
+    margin: 0 200px;
+    
+}
+
+.cart_buttonn{
+    width:100%;
+    color: #fff;
+    background-color: #eb4605;
+    border: 2px solid #fff;
+    font-weight: 500;
+    border-radius: 10px;
+    height: 48px;
+    max-height: 100%;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+
+}

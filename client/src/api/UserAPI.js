@@ -8,7 +8,9 @@ export default function UserAPI() {
     const [user, setUser] = useState([])
     const [token, setToken] = useState(false)
     const [allUsers, setAllUsers] = useState([])
-    
+    const [userCallback, setUserCallback] = useState(false)
+    const [cart, setCart]= useState([])
+    const [userCartDetails, setUserCartDetails] = useState([])
     console.log('token', token)
     console.log('logged', isLogged)
     console.log(localStorage.getItem('firstLogin'))
@@ -31,6 +33,8 @@ export default function UserAPI() {
                         .catch(err => {
                             setIsLogged(false)
                             setIsAdmin(false)
+                            setUser(false)
+                            setCart([])
                             localStorage.removeItem('firstLogin')
                             alert(err.response.data.error.msg)
                             console.log(err.response.data)
@@ -66,6 +70,7 @@ export default function UserAPI() {
                     .then(res => {
                         console.log(res.data)
                         setUser(res.data.data)
+                        setCart(res.data.data.cart)
                         res.data.data.role === 1 ? setIsAdmin(true) : setIsAdmin(false)
                     })
                     .catch(err => {
@@ -84,14 +89,16 @@ export default function UserAPI() {
             else{
                 setIsLogged(false)
             }
-    },[token])
+    },[token,userCallback])
 
   return {
     isLogged: [isLogged, setIsLogged],
     isAdmin: [isAdmin, setIsAdmin],
     user: [user, setUser],
     token: [token, setToken],
-    allUsers: [allUsers,setAllUsers]
+    allUsers: [allUsers,setAllUsers],
+    cart: [cart, setCart],
+    userCartDetails: [userCartDetails, setUserCartDetails]
   }
 }
 
@@ -120,6 +127,12 @@ export const userInfoAPI = async (id,token) => {
 
 export const updateUserInfoAPI = async (user,token) => {
     return await axios.patch(`/user/update_user_info`, user, {
+    headers: {Authorization: token}
+})
+}
+
+export const updateCartAPI = async (cart,token) => {
+    return await axios.patch(`/user/add_to_cart`, cart, {
     headers: {Authorization: token}
 })
 }

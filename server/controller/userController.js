@@ -191,6 +191,25 @@ const userController = {
         }
     },
 
+    addToCart: async (req,res) => {
+        try{
+            const user = await User.findById(req.user.id)
+            if(!user) return res.status(400).json({msg: "User does not exist."})
+
+            const ad = await User.findOneAndUpdate({_id: req.user.id}, {
+                cart: req.body.cart
+            }, {new: true})
+
+            if (!ad) return res.status(404).json({error:{code: res.statusCode, msg: 'User not updated'}, data: null}) 
+
+            return res.status(200).json({error:{code: null, msg: null}, data: ad}) 
+
+        }
+        catch (error) {
+            return res.status(500).json({error:{code: res.statusCode, msg: res.statusMessage}, data: null})  
+        }
+    },
+
     updateUserInfo: async (req,res) => {
         try {
             const user = await User.findById(req.user.id)
@@ -206,7 +225,7 @@ const userController = {
                 const updatedUser = await User.findOneAndUpdate({_id: req.params.id}, {status,reported}, {new: true})
                 if (!updatedUser) return res.status(404).json({error:{code: res.statusCode, msg: 'User not updated'}, data: null}) 
 
-                return res.status(200).json({error:{code: null, msg: null}, data: updatedUser}) 
+                return res.status(200).json({error:{code: null, msg: null}, data: 'Updated'}) 
             }
 
             else if (user.role === 2){// user is customer
@@ -216,8 +235,8 @@ const userController = {
                 console.log(name, contact, password, province, city, ads, favourites, status,cart)
                 const updatedUser = await User.findOneAndUpdate({_id: req.user.id}, {name, contact, password, province, city, ads, favourites,status,cart}, {new: true});
                 if (!updatedUser) return res.status(404).json({error:{code: res.statusCode, msg: 'User not updated'}, data: null}) 
-
-                return res.status(200).json({error:{code: null, msg: null}, data: "User Information has been updated"}) 
+                
+                return res.status(200).json({error:{code: null, msg: null}, data: updatedUser}) 
             }  
             
         } catch (error) {

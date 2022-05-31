@@ -51,10 +51,11 @@ const orderController = {
             if (user.role !== 2) {  //admin
                 return res.status(403).json({ error: { code: res.statusCode, msg: 'You do not have permission to access this resource' }, data: null })
             }
-
-            const {name, contact, sellerID, productID, address, city, province} = req.body
-            const buyerID = user._id
-            const newOrder = new Order({name, contact, sellerID, buyerID, productID, address, city, province});
+            console.log(req.body)
+            const {name, email,contact, sellerID, item, address, city, province} = req.body
+            const buyerID = user.id
+            console.log(buyerID)
+            const newOrder = new Order({name, email, contact, sellerID, buyerID, item, address, city, province});
             if (!newOrder) return res.status(404).json({ error: { code: res.statusCode, msg: 'Order not placed' }, data: null })
 
             const savedOrder = await newOrder.save();
@@ -62,8 +63,8 @@ const orderController = {
            
             return res.status(200).json({ error: { code: null, msg: null }, data: "The order has been placed" })
         }
-        catch {
-            return res.status(500).json({error:{code: err.code, msg: err.msg}, data: null})
+        catch (error){
+            return res.status(500).json({error:{code: error.code, msg: error.msg}, data: null})
         }
     },
 

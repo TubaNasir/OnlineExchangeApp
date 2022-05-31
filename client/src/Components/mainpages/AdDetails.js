@@ -3,8 +3,9 @@ import '../../Components/UI/AdDetails.css'
 import moment from 'moment'
 import {BsHeart} from 'react-icons/bs'
 import { GlobalState } from '../../GlobalState'
+import{MdClose}from 'react-icons/md'
 
-function AdDetails({advertisement}) {
+function AdDetails({advertisement, del,tag}) {
 
     const state = useContext(GlobalState)
     const [isLogged] = state.UserAPI.isLogged
@@ -41,12 +42,18 @@ console.log(isUserAd)
         <article className='a'>
         <div className='image'>
             <img className= 'img1'src={advertisement.image[0].url} alt =''/>
+            {tag ? <div className='tag'>
+                <span className='span_tag'>{advertisement.status}</span>
+                </div> : null}
         </div>
         <div className = 'ad_details'>
             <div className='details1'>
                 <div className='name'>{advertisement.name}</div>
                 <div className='price_div'>
                     <span>Rs. {advertisement.price}</span>
+                </div>
+                <div>
+                    {del ? <MdClose className='delete'/>:null}
                 </div>
                 {(!isAdmin || isUserAd) ?  null:<div className='favourite'>
                     <div className='favourite_icon_div'>

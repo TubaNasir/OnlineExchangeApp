@@ -9,7 +9,7 @@ import SubHeader from './SubHeader'
 import { BsHeart } from 'react-icons/bs'
 import moment from 'moment'
 import Slider from 'react-slick'
-import { updateUserInfoAPI } from '../../api/UserAPI'
+import { updateUserInfoAPI , updateCartAPI} from '../../api/UserAPI'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -28,6 +28,7 @@ function AdDetailsPage() {
     const [user,setUser] = state.UserAPI.user
     const [isLogged] = state.UserAPI.isLogged
     const [isAdmin] = state.UserAPI.isAdmin
+    const[cart,setCart] = state.UserAPI.cart
     const [main, setMain] = useState([])
     const [sub, setSub] = useState([])
     const [subSub, setSubSub] = useState([])
@@ -36,17 +37,30 @@ function AdDetailsPage() {
 
     useEffect(() => {
         const setAdUser = async () => {
-           var check =  user.ads?.every(item => {
+            if (user){
+
+            
+           var check =  user.ads.every(item => {
             return item !== adDetails._id
         }); 
+
+        console.log(check)
+
         if(check)
             setIsUserAd(false)
             else
             setIsUserAd(true)
-
+            }
         }
         setAdUser()
     },[])
+    console.log(user.cart)
+    
+    const setUserCart = async () => {
+            setCart([...cart, adDetails._id])
+            //setCart(...cart, { ...adDetails._id})
+        }  
+ 
 
     const addToCart = async (e) => {
         e.preventDefault()
@@ -58,11 +72,13 @@ function AdDetailsPage() {
         });
 
         if(check) {
-            setUser({...user, cart:[...user.cart, adDetails._id]});   
+            setUserCart();
 
-            updateUserInfoAPI(user,token)
+            updateCartAPI({cart: [...cart, adDetails._id]},token)
             .then(res => {
                 console.log(res.data);
+                setUser(res.data.data)
+                //setUserCallback(!setUserCallback)
                 alert('Product added to cart');
             })
             .catch(err => {
@@ -318,11 +334,11 @@ function AdDetailsPage() {
                             </div>
 
                         </div>
-                        {isAdmin || !isUserAd ? <div className='chat'>
+                        {(isAdmin || isUserAd) ? null:
+                        <div className='chat'>
                             <button onClick={addToCart} className='cart_button'>
                                 <span>Add to cart</span>
-                            </button>
-                        </div>: null}
+                            </button></div> }
                         
                     </div>
                 </div>
