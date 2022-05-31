@@ -598,10 +598,10 @@ const advertisementController = {
 
                 if (!user.ads.some(ad => (ad.toString() === req.params.id)))
                     return res.status(403).json({ error: { code: res.statusCode, msg: 'You do not have the permission to update this Ad' }, data: null })
+                console.log(req.body)
+                const { name, price, description, categoryID, status, image, area, city, province,userId } = req.body;
 
-                const { name, price, description, categoryID, status, image, area, city, province } = req.body;
-
-                const ad = await Ad.findOneAndUpdate({ _id: req.params.id }, { name, price, description, categoryID, status, image, area, city, province }, { new: true });
+                const ad = await Ad.findOneAndUpdate({ _id: req.params.id }, { name, price, description, categoryID, status, image, area, city, province,userId }, { new: true });
                 if (!ad) return res.status(404).json({ error: { code: res.statusCode, msg: 'Ad not updated' }, data: null })
 
                 return res.status(200).json({ error: { code: null, msg: null }, data: "Ad Information successfully updated" })

@@ -9,6 +9,6 @@ router.get('/all_advertisements', advertisementController.getAllAdsWithoutFilter
 router.get('/all_ads/:slug?', advertisementController.getAllAds)
 router.get('/count_ads/:slug?', advertisementController.countAds)
 router.post('/post_ad',authorization, upload.fields([{name:'file1'}, {name: 'file2'}]),advertisementController.postAd)
-router.put('/update_ad/:id?', authorization, advertisementController.updateAd)
+router.patch('/update_ad/:id?', authorization, advertisementController.updateAd)
 
 module.exports = router

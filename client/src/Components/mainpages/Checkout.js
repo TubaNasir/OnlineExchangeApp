@@ -104,7 +104,6 @@ const onChangeInput = e => {
 
   const updateSoldItems = async () => {
     userCartDetails.map((ad) => {
-      console.log(ad.cart)
       updateAdAPI(ad._id, ad , token)
       .then(res => {
         console.log(res.data);
@@ -143,7 +142,8 @@ const onChangeInput = e => {
           console.log(res.data);
           alert("Order placed successfully")
           setBuyer({name: '', email: '', contact: '', address: '',city: '', province: '', sellerID: '', item: '',})
-          setUserCartDetails((prevState) => ({ ...prevState, status: 'sold' }));
+          
+          setUserCartDetails({ ...userCartDetails, status: 'sold' });
           setTotal(0)
           //removeAd(p._id);
           updateLocation({
