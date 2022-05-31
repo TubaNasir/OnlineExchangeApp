@@ -15,6 +15,8 @@ import PostAd from './PostAd'
 import AdDetailsPage from './AdDetailsPage'
 import AdvertisementsFiltered from './AdvertisementsFiltered';
 import Msg from './Msg'
+import SellerProfile from './SellerProfile'
+import UserDetails from './UserDetails'
 
 
 
@@ -41,6 +43,8 @@ function PageRoutes() {
       <Route path='/ad/:id' exact element={<AdDetailsPage />} />
       <Route path="/post_ad" exact element={isLogged && !isAdmin ? <PostAd /> : <Navigate to='/login' />} />
       <Route path="/edit_ad/:id" exact element={isLogged && !isAdmin ? <PostAd /> : null} />
+      <Route path="/sellerprofile" exact element={<SellerProfile />} />
+      <Route path="/userdetails" exact element={<UserDetails />} />
     </Routes>
   )
 }
