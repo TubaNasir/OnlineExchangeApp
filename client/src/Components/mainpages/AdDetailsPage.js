@@ -10,6 +10,7 @@ import { BsHeart } from 'react-icons/bs'
 import moment from 'moment'
 import Slider from 'react-slick'
 import { updateUserInfoAPI } from '../../api/UserAPI'
+import SellerProfile from './SellerProfile'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -23,9 +24,9 @@ function AdDetailsPage() {
     const [token] = state.UserAPI.token
     const params = useParams()
     const [adDetails, setAdDetails] = useState([])
-    const [seller, setSeller] = useState([])
+    const [seller, setSeller] = state.UserAPI.seller
     const [allUsers] = state.UserAPI.allUsers
-    const [user,setUser] = state.UserAPI.user
+    const [user, setUser] = state.UserAPI.user
     const [isLogged] = state.UserAPI.isLogged
     const [main, setMain] = useState([])
     const [sub, setSub] = useState([])
@@ -36,27 +37,27 @@ function AdDetailsPage() {
 
         if (!isLogged) return alert("Please login to continue buying")
 
-        var check =  user.cart?.every(item => {
+        var check = user.cart?.every(item => {
             return item !== adDetails._id
         });
 
-        if(check) {
-            setUser({...user, cart:[...user.cart, adDetails._id]});   
+        if (check) {
+            setUser({ ...user, cart: [...user.cart, adDetails._id] });
 
-            updateUserInfoAPI(user,token)
-            .then(res => {
-                console.log(res.data);
-                alert('Product added to cart');
-            })
-            .catch(err => {
-                console.log(err.response)
-                alert("Could not add product to cart")
-              })
-        
-            
+            updateUserInfoAPI(user, token)
+                .then(res => {
+                    console.log(res.data);
+                    alert('Product added to cart');
+                })
+                .catch(err => {
+                    console.log(err.response)
+                    alert("Could not add product to cart")
+                })
+
+
         }
 
-        else{
+        else {
             alert('Product already in cart')
         }
     }
@@ -72,20 +73,20 @@ function AdDetailsPage() {
         slidesToScroll: 9,
         infinite: false,
 
-         responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-       slidesToShow: 2,
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-       slidesToShow: 1,
-      }
-     }
-  ]
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
     }
 
     //const [loading, setLoading] = useState(true)
@@ -172,11 +173,14 @@ function AdDetailsPage() {
                                 <div className='cat_head'>
                                     <span>Seller Details</span>
                                 </div>
-                                <a href='#'>
+
+
+                                <Link id="seller" to={`/sellerprofile`}><ul className='list'></ul>
                                     <div className='seller_info'>
                                         <img className='seller_img' alt='' />
                                         <div className='seller_name'>
                                             <span className='sname'>{seller.name}</span>
+
                                             <span className='extra_details'>
                                                 Member since {new Date(seller.createdAt).getFullYear()}
                                             </span>
@@ -187,10 +191,12 @@ function AdDetailsPage() {
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </Link>
+
 
                             </div>
                         </div>
+
                     </div>
                     <div className='second_col'>
                         <div className='details_div'>
@@ -310,26 +316,26 @@ function AdDetailsPage() {
                 <div className='relatedads_div'>
                     <div className='hdiv'>
                         <span className='cat_head'>
-                        Related Advertisements
-                    </span>
-                    <span className='btn_span'>
-                        <button className='slider_btn' onCLick={sliderRef?.slickPrev}>
-                            <IoIosArrowBack />
-                        </button >
-                        <button className='slider_btn' onCLick={sliderRef?.slickNext}>
-                            <IoIosArrowForward />
-                        </button>
+                            Related Advertisements
+                        </span>
+                        <span className='btn_span'>
+                            <button className='slider_btn' onCLick={sliderRef?.slickPrev}>
+                                <IoIosArrowBack />
+                            </button >
+                            <button className='slider_btn' onCLick={sliderRef?.slickNext}>
+                                <IoIosArrowForward />
+                            </button>
                         </span>
                     </div>
-                    
+
                     <div className='content'>
-                        
+
                         <Slider ref={setSliderRef} {...sliderSettings}>
-                            {allAdvertisements.filter(adv => adv.categoryID===adDetails.categoryID).map((ad, index ) => (
-                                <div className='box_div' style={{width: '28rem'}}>
+                            {allAdvertisements.filter(adv => adv.categoryID === adDetails.categoryID).map((ad, index) => (
+                                <div className='box_div' style={{ width: '28rem' }}>
                                     <article className='art'>
                                         <div className='cat_image_div'>
-                                                <img className='cat_img_div' src={ad.image[0].url}/>     
+                                            <img className='cat_img_div' src={ad.image[0].url} />
                                         </div>
                                         <div className='cat_details_div'>
                                             <div className='cat_desc_div'>
@@ -345,7 +351,7 @@ function AdDetailsPage() {
                                     </article>
 
                                 </div>
-                                
+
                             ))}
                         </Slider>
                     </div>

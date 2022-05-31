@@ -9,12 +9,16 @@ function Register() {
         name: '', email: '', password: '', gender: '', contact: '', city: '', province: '', role: 2, image: ''
     })
 
+
+
     console.log(user.name, user.email, user.password, user.gender, user.contact, user.city, user.province, user.role)
 
     const onChangeInput = e => {
         const { name, value } = e.target;
         setUser({ ...user, [name]: value })
     }
+
+    const Sindh = ['Badin', 'Bhirkan', 'Rajo Khanani', 'Chak,Dadu', 'Digri', 'Diplo', 'Dokri', 'Ghotki', 'Haala', 'Hyderabad', 'Islamkot', 'Jacobabad', 'Jamshoro', 'Jungshahi', 'Kandhkot', 'Kandiaro', 'Karachi', 'Kashmore', 'Keti Bandar', 'Khairpur', 'Kotri', 'Larkana', 'Matiari', 'Mehar', 'Mirpur Khas', 'Mithani', 'Mithi', 'Mehrabpur', 'Moro', 'Nagarparkar', 'Naudero', 'Naushahro Feroze', 'Naushara', 'Nawabshah', 'Nazimabad', 'Qambar', 'Qasimabad', 'Ranipur', 'Ratodero', 'Rohri', 'Sakrand', 'Sanghar', 'Shahbandar', 'Shahdadkot', 'Shahdadpur', 'Shahpur Chakar', 'Shikarpaur', 'Sukkur', 'Tangwani', 'Tando Adam Khan', 'Tando Allahyar', 'Tando Muhammad Khan', 'Thatta', 'Umerkot', 'Warah']
 
     const registerSubmit = async e => {
         e.preventDefault()
@@ -121,6 +125,7 @@ function Register() {
                             <div className='form-group col-md-6 mb-3'>
                                 <label className='mb-2'>Province</label>
                                 <select name='province' className='form-control' value={user.province} onChange={onChangeInput} >
+
                                     <option>--Select a Province--</option>
                                     <option>Sindh</option>
                                     <option>Punjab</option>
@@ -132,8 +137,8 @@ function Register() {
 
                             <div className='form-group col-md-6 mb-3'>
                                 <label className='mb-2'>City</label>
-                                <select name='city' className='form-control' value={user.city} onChange={onChangeInput}>
-                                    <option>--Select a City--</option>
+                                <select name='city' className='form-control' value={user.city} onChange={onChangeInput} placeholder='select'>
+                                    <option hidden>--Select a City--</option>
                                     <option>Karachi</option>
                                     <option>Lahore</option>
                                     <option>Islamabad</option>
