@@ -1,10 +1,41 @@
-import React from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import '../../Components/UI/AdDetails.css'
 import moment from 'moment'
 import {BsHeart} from 'react-icons/bs'
+import { GlobalState } from '../../GlobalState'
 
 function AdDetails({advertisement}) {
- 
+
+    const state = useContext(GlobalState)
+    const [isLogged] = state.UserAPI.isLogged
+    const [isAdmin] = state.UserAPI.isAdmin
+    const [user] = state.UserAPI.user
+    const[isUserAd, setIsUserAd] = useState(false)
+
+
+    useEffect(() => {
+        const setAdUser = async () => {
+           var check =  user.ads?.every(item => {
+            return item !== advertisement._id
+        }); 
+        if(check)
+            setIsUserAd(false)
+            else
+            setIsUserAd(true)
+
+        }
+        setAdUser()
+    },[])
+    /* const isUserAd = () => {
+        var check =  user.ads?.every(item => {
+            console.log(item)
+            return item !== advertisement._id
+        });console.log(check)
+         return check;
+    } */
+console.log(isUserAd)
+    
+
   return (
     <li className='list'>
         <article className='a'>
@@ -17,12 +48,15 @@ function AdDetails({advertisement}) {
                 <div className='price_div'>
                     <span>Rs. {advertisement.price}</span>
                 </div>
-                <div className='favourite'>
+                {(!isAdmin || isUserAd) ?  null:<div className='favourite'>
                     <div className='favourite_icon_div'>
                         <div className='favourite_icon'><BsHeart/></div>
                     </div>
 
-                </div>
+                </div> }
+                    
+                
+                
             </div>
             <div className='location'>
             <div className='loc'>

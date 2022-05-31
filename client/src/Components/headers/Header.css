@@ -11,9 +11,6 @@
   color: lightgrey;
   size: 12 px;
   margin: 0 5px;
-  border-color: gray;
-  border: 2px;
-  position: 
 }
 
 .icon {
@@ -21,24 +18,33 @@
   margin: 0 5px;
 }
 
-.img {
-  width: 10%;
-    height: 300px;
-    
+.header_icon{
+  color: lightgray;
+  margin: 0 5px;
+  justify-content: center;
 }
 
-.sidebar {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
-  position: sticky;
-  right: 20px;
-  top: 20px;
- --offset: var(--space);
-  z-index: 10;
+.c{
+  position: relative;
 }
 
+.cart_l{
+  background: #dd6e42;
+  border-radius: 20px;
+  color: white;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 5px 7px;
+  font-size: 10px;
+}
+
+.searchBar-wrap{
+  border:solid 1px lightgray;
+  border-radius: 3px;
+  padding:0;
+  margin:0
+}
 
 /* .navbar {
     background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);

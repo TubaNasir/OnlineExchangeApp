@@ -12,6 +12,7 @@ import AdminHomepage from './AdminHomepage'
 import Profile from './Profile'
 import Category from './Category'
 import PostAd from './PostAd'
+import Cart from './Cart'
 import AdDetailsPage from './AdDetailsPage'
 import AdvertisementsFiltered from './AdvertisementsFiltered';
 import Msg from './Msg'
@@ -36,15 +37,15 @@ function PageRoutes() {
       <Route path="/:slug" exact element={isAdmin ? <AdminHomepage /> : <Advertisements />} />
       <Route path="/users" exact element={<Users />} />
       <Route path="/orders" exact element={<Orders />} />
-      <Route path="/complaints" exact element={<Complaints />} />
+      <Route path="/cart" exact element={<Cart />} />
       <Route path="/profile" exact element={<Profile />} />
       <Route path="/category" exact element={<Category />} />
       <Route path="/category" exact element={<Category />} />
       <Route path='/ad/:id' exact element={<AdDetailsPage />} />
       <Route path="/post_ad" exact element={isLogged && !isAdmin ? <PostAd /> : <Navigate to='/login' />} />
       <Route path="/edit_ad/:id" exact element={isLogged && !isAdmin ? <PostAd /> : null} />
-      <Route path="/sellerprofile" exact element={<SellerProfile />} />
       <Route path="/userdetails" exact element={<UserDetails />} />
+      <Route path="/sellerprofile" exact element={<SellerProfile />} />
     </Routes>
   )
 }

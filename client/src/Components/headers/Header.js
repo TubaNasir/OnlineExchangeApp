@@ -24,38 +24,30 @@ function Header() {
     const router = () => {
         if (!isAdmin) {
             return (
+
                 <>
-                    <div className='header'>
-                        <li>{/* <form className="form-inline my-2 my-lg-0 ml-auto ">
-                    <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                    <span className="input-group-btn">
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </span>
-                </form> */}
 
-                            {/* <div className='img'>
-                            <img src={user.image} alt="" />
+                    <li>
+                        <div className='searchBar-wrap'>
+                            <IoMdSearch className='searchIcon' />
+                            <input
+                                type='text'
+                                placeholder='search'
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)} />
+
+
                         </div>
- */}
-                            <div className='searchBar-wrap'>
-                                <IoMdSearch className='searchIcon' />
-                                <input
-                                    type='text'
-                                    placeholder='search'
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)} />
-
-
-                            </div>
-                        </li>
-                        <span>
-                            <Link to="/post_ad"><FaPlusCircle className='icon' size={30} /></Link>
-                        </span>
-                        <span><Link to='/cart'><FaShoppingCart className='header_icon' /></Link></span>
+                    </li>
+                    <div>
+                        <Link to="/post_ad"><FaPlusCircle className='icon' size={30} /></Link>
                     </div>
+                    <div className='c'><Link to='/cart'><span className='cart_l'>{isLogged ? user.cart.length : 0}</span><FaShoppingCart className='header_icon' size={25} /></Link></div>
                 </>
+
             )
         }
+
         else if (isAdmin) {
             return (
                 <>
@@ -114,25 +106,18 @@ function Header() {
                             <div className="nav-link dropdown-toggle" onClick={handleDropdown} href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {user.name}
                             </div>
-                            <div className='sidebar'>
-                                <ul>
-
-                                    <div className={menuClass} aria-labelledby="navbarDropdown">
-                                        <li><a className="dropdown-item" href="/profile">My Profile</a></li>
-                                        <div className="dropdown-divider"></div>
-                                        <li><a className="dropdown-item" href="/">My Ads</a></li>
-                                        <div className="dropdown-divider"></div>
-                                        <li><a className="dropdown-item" href="/">My Orders</a></li>
-                                        <div className="dropdown-divider"></div>
-                                        <li><a className="dropdown-item" href="/">My Favourites</a></li>
-                                        <div className="dropdown-divider"></div>
-                                        <li><a className="dropdown-item" href="/">Customer Support</a></li>
-                                        <div className="dropdown-divider"></div>
-                                        <li><a className="dropdown-item" href="/msg">Messages</a></li>
-                                        <div className="dropdown-divider"></div>
-                                        <li><a className="dropdown-item" href="/" onClick={logoutUser}>Logout</a></li>
-                                    </div>
-                                </ul>
+                            <div className={menuClass} aria-labelledby="navbarDropdown">
+                                <a className="dropdown-item" href="/profile">My Profile</a>
+                                <div className="dropdown-divider"></div>
+                                <a className="dropdown-item" href="/">My Ads</a>
+                                <div className="dropdown-divider"></div>
+                                <a className="dropdown-item" href="/">My Orders</a>
+                                <div className="dropdown-divider"></div>
+                                <a className="dropdown-item" href="/">My Favourites</a>
+                                <div className="dropdown-divider"></div>
+                                <a className="dropdown-item" href="/">Customer Support</a>
+                                <div className="dropdown-divider"></div>
+                                <a className="dropdown-item" href="/" onClick={logoutUser}>Logout</a>
                             </div>
                         </li>
                     </>
