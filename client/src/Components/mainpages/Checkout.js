@@ -21,7 +21,7 @@ function Checkout() {
     name: '', email: '', contact: '', address: '',city: '', province: '', sellerID: '', item: '',
 })
 
-console.log(buyer)
+console.log(user)
 
 const [location, setLocation] = useState({
   provinces: [],
@@ -88,8 +88,10 @@ const onChangeInput = e => {
         }))
   }, [])
 
-  const updateCart = (cart) =>{
-    updateCartAPI(cart,token)
+  const updateCart = async () =>{
+    console.log()
+    const c = []
+    updateCartAPI({cart: c},token)
     .then(res => {
         console.log(res.data);
         setUser(res.data.data)
@@ -102,11 +104,10 @@ const onChangeInput = e => {
 
   const updateSoldItems = async () => {
     userCartDetails.map((ad) => {
-      console.log(ad.cart)
       updateAdAPI(ad._id, ad , token)
       .then(res => {
         console.log(res.data);
-       removeAd(ad._id);
+       
   })
   .catch(err => {
     console.log(err.response.data)
@@ -131,7 +132,8 @@ const onChangeInput = e => {
 }
 
 
-  const checkoutSubmit = () => {
+  const checkoutSubmit = async (e) => {
+    e.preventDefault()
     const b = buyer
     userCartDetails.map(async(p) => {
         placeOrderAPI({item: p, sellerID: p.userId || 1 , name: b.name, email: b.email, contact: b.contact, address: b.address,city: b.city, province: b.province
@@ -140,10 +142,10 @@ const onChangeInput = e => {
           console.log(res.data);
           alert("Order placed successfully")
           setBuyer({name: '', email: '', contact: '', address: '',city: '', province: '', sellerID: '', item: '',})
-          setCart([])
-          setUserCartDetails((prevState) => ({ ...prevState, status: 'sold' }));
-          setTotal(0)
           
+          setUserCartDetails({ ...userCartDetails, status: 'sold' });
+          setTotal(0)
+          //removeAd(p._id);
           updateLocation({
             selectedProvince: '',
             selectedCity: '',
@@ -157,7 +159,8 @@ const onChangeInput = e => {
       //return(<Toast msg="Failed to post ad"/>)
     })
   })
-
+  setCart([])
+  updateCart()
   updateSoldItems()
 }
   

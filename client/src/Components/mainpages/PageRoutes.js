@@ -20,6 +20,7 @@ import Msg from './Msg'
 import SellerProfile from './SellerProfile'
 import UserDetails from './UserDetails'
 import AdminUProf from './AdminUProf';
+import MyAds from './MyAds';
 
 
 
@@ -49,6 +50,7 @@ function PageRoutes() {
       <Route path="/userdetails" exact element={<UserDetails />} />
       <Route path="/sellerprofile" exact element={<SellerProfile />} />
       <Route path="/adminuprof/:id" exact element={<AdminUProf />} />
+      <Route path="/my_ads" exact element={<MyAds />} />
     </Routes>
   )
 }

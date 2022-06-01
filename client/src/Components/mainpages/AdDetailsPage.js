@@ -208,7 +208,7 @@ function AdDetailsPage() {
                                 </div>
 
 
-                                <Link id="seller" to={`/sellerprofile`}><ul className='list'></ul>
+                                <Link id="seller" to={`/sellerprofile`}>
                                     <div className='seller_info'>
                                         <img className='seller_img' alt='' />
                                         <div className='seller_name'>
@@ -340,7 +340,7 @@ function AdDetailsPage() {
                             </div>
 
                         </div>
-                        {(isAdmin || isUserAd) ? null:
+                        {(isAdmin ) ? null:
                         <div className='chat'>
                             <button onClick={addToCart} className='cart_button'>
                                 <span>Add to cart</span>

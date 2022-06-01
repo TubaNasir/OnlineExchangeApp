@@ -92,9 +92,7 @@ function Header() {
                                 ADMIN
                             </div>
                             <div className={menuClass} aria-labelledby="navbarDropdown">
-                                <a className="dropdown-item" href="/">Review Ads</a>
-                                <a className="dropdown-item" href="/">Customer Support</a>
-                                <a className="dropdown-item" href="/category">Categories</a>
+                                <a className="dropdown-item" href="/category" onClick={handleDropdown}>Categories</a>
                                 <a className="dropdown-item" href="/" onClick={logoutUser}>Logout</a>
 
                             </div>
@@ -112,16 +110,9 @@ function Header() {
                                 {user.name}
                             </div>
                             <div className={menuClass} aria-labelledby="navbarDropdown">
-                                <a className="dropdown-item" href="/profile">My Profile</a>
-                                <div className="dropdown-divider"></div>
-                                <a className="dropdown-item" href="/">My Ads</a>
-                                <div className="dropdown-divider"></div>
-                                <a className="dropdown-item" href="/">My Orders</a>
-                                <div className="dropdown-divider"></div>
-                                <a className="dropdown-item" href="/">My Favourites</a>
-                                <div className="dropdown-divider"></div>
-                                <a className="dropdown-item" href="/">Customer Support</a>
-                                <div className="dropdown-divider"></div>
+                                <Link to ='/profile' className="dropdown-item" onClick={handleDropdown} >My Profile</Link>
+                                <Link to='/my_ads' className="dropdown-item" onClick={handleDropdown}>My Ads</Link>
+                                <Link className="dropdown-item" to="/" onClick={handleDropdown}>My Orders</Link>
                                 <a className="dropdown-item" href="/" onClick={logoutUser}>Logout</a>
                             </div>
                         </li>

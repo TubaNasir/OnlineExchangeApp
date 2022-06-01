@@ -17,8 +17,8 @@
 }
 
 .home_panel-wrap{
-    border: 1px solid #cae7ea;
-    background-color: aliceblue;
+    border: 1px solid #edd6bf;
+    background-color: rgb(235, 229, 223);
     border-radius: 10px 10px 10px 10px;
     flex-basis: 280px;
     padding: 1rem;

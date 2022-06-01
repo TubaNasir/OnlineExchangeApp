@@ -13,7 +13,7 @@ export default function AdvertisementAPI(){
   const [city, setCity] = useState('')
   const [province, setProvince] = useState('')
   const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(3)
+  const [limit, setLimit] = useState(6)
   const [count, setCount] = useState(0)
   const [status, setStatus] = useState('')
   
@@ -108,7 +108,7 @@ export const uploadImageAPI = async (formData, token) => {
 }
 
 export const updateAdAPI = async (id,ad,token) => {
-    await axios.put(`/ad/update_ad/${id}`, ad,  {
+    await axios.patch(`/ad/update_ad/${id}`, ad,  {
     headers: {Authorization: token}
 })
 }

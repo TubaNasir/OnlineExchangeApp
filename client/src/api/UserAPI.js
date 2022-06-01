@@ -44,9 +44,9 @@ export default function UserAPI() {
                         
                     }
                     refreshToken()
-                }
+               
        
-    
+     }
         const getAllUsers = async () => {
             await axios.get('/user/all_users')
                 .then(res => {
@@ -60,6 +60,7 @@ export default function UserAPI() {
                 })
         }
         getAllUsers()
+    
         }, [])
     
     useEffect(() => {
@@ -100,7 +101,8 @@ export default function UserAPI() {
     token: [token, setToken],
     allUsers: [allUsers,setAllUsers],
     cart: [cart, setCart],
-    userCartDetails: [userCartDetails, setUserCartDetails]
+    userCartDetails: [userCartDetails, setUserCartDetails],
+    seller: [seller, setSeller]
   }
 }
 

@@ -12,7 +12,7 @@ function App() {
       <Router>
         <div className="App">
           <Header />
-          <MainPages />
+          <MainPages className='mainpage'/>
           <Footer />
         </div>
       </Router>
