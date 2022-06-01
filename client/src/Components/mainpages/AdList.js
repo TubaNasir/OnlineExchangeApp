@@ -36,10 +36,13 @@ console.log('adv', advertisements)
       <Col className="products">
             {
                 advertisements.map(advertisement => {
-                    return (<Link id="ad" to={`/ad/${advertisement._id}`}><ul className='list'>
+                  if(advertisement.status === 'active'){
+                       return (<Link id="ad" to={`/ad/${advertisement._id}`}><ul className='list'>
                 <AdDetails key={advertisement._id} advertisement={advertisement} /></ul></Link>)
-                })
-            } 
+}})
+                  
+                 
+            }
   
             
         </Col>

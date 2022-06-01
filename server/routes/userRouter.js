@@ -1,8 +1,10 @@
 const router = require('express').Router()
 const userController = require('../controller/userController')
 const authorization = require('../middleware/authorization')
+const upload = require("../utils/multer");
 
-router.post('/register', userController.register)
+
+router.post('/register', upload.fields([{name:'file1'}]),userController.register)
 
 router.post('/login', userController.login)
 

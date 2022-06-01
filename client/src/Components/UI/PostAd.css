@@ -5,7 +5,7 @@
 .mainLabel{
     font-weight: 600;
     font-size: 18px;
-    background-color: #cae7ea ;
+    background-color: #f9d395 ;
     border-radius: 10px;
     padding: 3px 10px;
 }
@@ -56,4 +56,26 @@ textarea {
     margin: 20px;
     position: relative;
   }
-  
+  .checkout{
+    margin: 0.8rem 15rem;
+    flex: 1;
+    
+}
+
+.checkout_button{
+    width:100%;
+    color: #fff;
+    background-color: #eb4605;
+    border: 2px solid #fff;
+    font-weight: 500;
+    border-radius: 10px;
+    height: 48px;
+    max-height: 100%;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+
+}

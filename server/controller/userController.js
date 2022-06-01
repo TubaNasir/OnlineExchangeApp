@@ -1,6 +1,8 @@
 const User = require('../model/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const cloudinary = require('../utils/cloudinary')
+
 
 class features {
     constructor(query, queryString) {
@@ -47,18 +49,34 @@ const userController = {
     register: async (req, res) => {
         try {
 
-            const { name, email, contact, password, province, city, gender, role, image } = req.body;
+            const { name, email, contact, password, province, city, gender, role} = req.body;
+            console.log(req.body)
+            let images = []
+            if(req.files.file1){
+                if (req.files.file1[0].size > 1024 * 1024) {
+                    return res.status(404).json({ error: { code: res.statusCode, msg: 'Image size is too large' }, data: null })
+                }
+    
+                if (req.files.file1[0].mimetype !== 'image/jpeg' && req.files.file1[0].mimetype !== 'image/png' && req.files.file1[0].mimetype !== 'image/jpg') {
+                    return res.status(404).json({ error: { code: res.statusCode, msg: 'Image format is incorrect' }, data: null })
+                }
+    
+                
+                await cloudinary.uploader.upload(req.files.file1[0].path, { folder: "Online-Exchange-App" }, async (err, result) => {
+                    if (err) reject(res.status(404).json({ error: { code: res.statusCode, msg: error.msg }, data: null }))
+    
+                        images[0] = ({ url: result.url, public_id: result.public_id })
+                    
+                })
+            }
+            if (Object.keys(name, email, contact, password, province, city, gender, role).length === 0) {
+                return res.status(404).json({ error: { code: res.statusCode, msg: 'Input data missing' }, data: null })
 
-            if (!name || !email || !contact || !password || !province || !city || !gender || !role)
-                return res.status(400).json({ error: { code: res.statusCode, msg: 'User info is incomplete' }, data: null })
+             }
 
-
-            if (role !== 2) {
+            if (role !== '2') {
                 return res.status(403).json({ error: { code: res.statusCode, msg: 'You do not have permission to access this resource' }, data: null })
             }
-
-            if (password.length < 8) return res.status(400).json({ error: { code: res.statusCode, msg: 'Password must be atleaast 8 characters long' }, data: null })
-
 
             const user = await User.findOne({ email })
 
@@ -67,13 +85,13 @@ const userController = {
             if (password.length < 8) return res.status(400).json({ error: { code: res.statusCode, msg: 'Password must be atleaast 8 characters long' }, data: null })
 
             const hashedPassword = await bcrypt.hash(password, 10)
+            console.log('here')
 
-            const newUser = new User({ name, email, contact, password: hashedPassword, province, city, gender })
+            const newUser = new User({ name, email, contact, password: hashedPassword, province, city, gender, image: images })
 
             const newUserSaved = await newUser.save()
             if (!newUserSaved) return res.status(404).json({ error: { code: res.statusCode, msg: 'User Not Registered' }, data: null })
-
-            res.json({ error: { code: null, msg: null }, data: "Registered Successfully" })
+            res.status(200).json({ error: { code: null, msg: null }, data: "Registered Successfully" })
 
 
         } catch (err) {
@@ -107,7 +125,7 @@ const userController = {
                 maxAge: 7 * 24 * 60 * 60 * 1000
             })
 
-            res.json({ error: { code: null, msg: null }, data: { accessToken: accessToken } })
+            res.status(200).json({ error: { code: null, msg: null }, data: { accessToken: accessToken } })
 
         } catch (error) {
             return res.status(500).json({ error: { code: res.statusCode, msg: res.statusMessage }, data: null })
@@ -195,7 +213,7 @@ const userController = {
         try{
             const user = await User.findById(req.user.id)
             if(!user) return res.status(400).json({msg: "User does not exist."})
-console.log('cart',req.body)
+console.log('cart',req.body.cart)
             const u = await User.findOneAndUpdate({_id: req.user.id}, { cart: req.body.cart
             }, {new: true})
 
@@ -245,11 +263,11 @@ console.log('cart',req.body)
 }
 
 const createAccessToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '100s' })
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
 }
 
 const createRefreshToken = (user) => {
-    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '150s' })
+    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' })
 }
 
 

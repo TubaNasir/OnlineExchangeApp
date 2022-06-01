@@ -104,6 +104,7 @@ const onChangeInput = e => {
 
   const updateSoldItems = async () => {
     userCartDetails.map((ad) => {
+      console.log(ad)
       updateAdAPI(ad._id, ad , token)
       .then(res => {
         console.log(res.data);
@@ -143,7 +144,7 @@ const onChangeInput = e => {
           alert("Order placed successfully")
           setBuyer({name: '', email: '', contact: '', address: '',city: '', province: '', sellerID: '', item: '',})
           
-          setUserCartDetails({ ...userCartDetails, status: 'sold' });
+          setUserCartDetails(userCartDetails => ({ ...userCartDetails, status: 'sold' }));
           setTotal(0)
           //removeAd(p._id);
           updateLocation({
@@ -172,7 +173,7 @@ const onChangeInput = e => {
         <div className='card mt-4'>
 
 <div className="card-header">
-    <h4 style={{textAlign: 'center'}}>Register</h4>
+    <h4 style={{textAlign: 'center'}}>Information</h4>
 </div>
 <div className='card-body'>
     <form onSubmit={checkoutSubmit}>
@@ -255,11 +256,6 @@ const onChangeInput = e => {
 </div>
 
 
-        <div className='col-md-8 form-group mb-3'>
-            <label style={{ marginTop: 5, marginBottom: 5, fontWeight: 500 }}>Image</label>
-            <input type="file" name='image' value={buyer.image} onChange={onChangeInput} className='form-control form-group' />
-        </div>
-
 
        
     </form>
@@ -290,8 +286,8 @@ const onChangeInput = e => {
                   <strong>Rs. {total}</strong>
                 </li>
               </ul>
-              <div className='checkout'>
-                            <button className='checkout_button' onClick={checkoutSubmit}>
+              <div className='checkoutttt'>
+                            <button className='checkout_buttonnnn' onClick={checkoutSubmit}>
                                 <span>Checkout</span>
                             </button>
                     </div>

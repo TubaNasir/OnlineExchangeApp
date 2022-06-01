@@ -84,7 +84,7 @@ function Header() {
 
         else {
             if (isAdmin) {
-                const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
+                const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-end position-absolute`
                 return (
                     <>
                         <li className="nav-item dropdown ">
@@ -102,7 +102,7 @@ function Header() {
                 )
             }
             else if (!isAdmin) {
-                const menuClass = `dropdown-menu${dropdown ? "show" : ""} dropdown-menu-right position-absolute`
+                const menuClass = `dropdown-menu${dropdown ? "show" : ""} .pull-left position-absolute`
                 return (
                     <>
                         <li className="nav-item dropdown ">

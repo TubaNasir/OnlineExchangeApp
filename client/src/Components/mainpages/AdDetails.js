@@ -1,16 +1,23 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import '../../Components/UI/AdDetails.css'
+import {Link} from 'react-router-dom'
 import moment from 'moment'
 import {BsHeart} from 'react-icons/bs'
 import { GlobalState } from '../../GlobalState'
+import {FaRegTimesCircle} from 'react-icons/fa'
 import{MdClose}from 'react-icons/md'
+import { updateCartAPI} from '../../api/UserAPI';
+
 
 function AdDetails({advertisement, del,tag}) {
 
     const state = useContext(GlobalState)
     const [isLogged] = state.UserAPI.isLogged
     const [isAdmin] = state.UserAPI.isAdmin
-    const [user] = state.UserAPI.user
+    const [user,setUser] = state.UserAPI.user
+    const [token] = state.UserAPI.token
+    const [cart,setCart]= state.UserAPI.cart
+console.log(tag,del)
     const[isUserAd, setIsUserAd] = useState(false)
 
 
@@ -27,6 +34,31 @@ function AdDetails({advertisement, del,tag}) {
         }
         setAdUser()
     },[])
+
+    const updateCart = async (c) =>{
+        console.log(c)
+        const cart = c
+        updateCartAPI({cart: c},token)
+        .then(res => {
+            console.log(res.data);
+            setUser(res.data.data)
+        })
+        .catch(err => {
+            console.log(err.response)
+          })
+    
+      }
+
+    const removeFromCart = async (id) => {
+        cart.forEach((item, index) => {
+            if (item === id) {
+                 cart.splice(index, 1)
+            }
+        })
+
+        setCart([...cart])
+        updateCart(cart)
+    }
     /* const isUserAd = () => {
         var check =  user.ads?.every(item => {
             console.log(item)
@@ -48,19 +80,20 @@ console.log(isUserAd)
         </div>
         <div className = 'ad_details'>
             <div className='details1'>
-                <div className='name'>{advertisement.name}</div>
+            <Link id="ad" to={`/ad/${advertisement._id}`}>
+                <div className='name'>{advertisement.name}</div></Link>
                 <div className='price_div'>
                     <span>Rs. {advertisement.price}</span>
                 </div>
-                <div>
-                    {del ? <MdClose className='delete'/>:null}
-                </div>
-                {(!isAdmin || isUserAd) ?  null:<div className='favourite'>
+                {del ? <div>
+                    <button className='as' onClick={() => removeFromCart(advertisement._id)}><FaRegTimesCircle className='delete' /></button></div>:null}
+                 
+               {/*  {(!isAdmin || isUserAd) ?  null:<div className='favourite'>
                     <div className='favourite_icon_div'>
                         <div className='favourite_icon'><BsHeart/></div>
                     </div>
 
-                </div> }
+                </div> } */}
                     
                 
                 

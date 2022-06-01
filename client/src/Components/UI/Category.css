@@ -1,6 +1,6 @@
 .modal-header{
     padding: 10px 15px;
-    background-color:darkslategrey
+    background-color:#eb4605
 }
 
 .modal-title{
@@ -13,7 +13,7 @@
 }
 
 .primary-button {
-    background-color: darkslategrey;
+    background-color: #eb4605;
     size: 'sm' 
 }
 
@@ -30,7 +30,7 @@
     margin:0 5px;
     padding: 5px 5px;
     font-size: 14px;
-    background-color:darkslategrey;
+    background-color:#eb4605;
     color: white;
     
 }
