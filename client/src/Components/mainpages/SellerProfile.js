@@ -9,6 +9,7 @@ function SellerProfile() {
     const [allUsers] = state.UserAPI.allUsers
     const params = useParams()
     const [seller, setSeller] = state.UserAPI.seller
+
     const [allAdvertisements, setAllAdvertisements] = state.AdvertismentAPI.allAdvertisements
     const [advertisements, setAdvertisements] = state.AdvertismentAPI.advertisements
 

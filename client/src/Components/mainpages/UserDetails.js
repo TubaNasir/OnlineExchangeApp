@@ -5,6 +5,7 @@ import AdDetails from './AdDetails'
 import Title from '../utilities/Title'
 import { Container, Row, Col, Modal, Button, FormGroup } from 'react-bootstrap'
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@material-ui/core'
+import AdminUProf from './AdminUProf'
 
 
 function UserDetails() {
@@ -29,7 +30,7 @@ function UserDetails() {
                     {
                         allUsers.map((user) => (
                             <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                <TableCell><Link to='/sellerprofile'>{user.name}</Link></TableCell>
+                                <TableCell><Link id="user" to={`/adminuprof/${user._id}`}>{user.name}</Link></TableCell>
                                 <TableCell>{user.gender}</TableCell>
                                 <TableCell>{user.city}, {user.province}</TableCell>
                             </TableRow>

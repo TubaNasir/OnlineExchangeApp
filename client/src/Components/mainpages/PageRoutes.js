@@ -19,6 +19,7 @@ import AdvertisementsFiltered from './AdvertisementsFiltered';
 import Msg from './Msg'
 import SellerProfile from './SellerProfile'
 import UserDetails from './UserDetails'
+import AdminUProf from './AdminUProf';
 import MyAds from './MyAds';
 
 
@@ -32,7 +33,6 @@ function PageRoutes() {
 
   return (
     <Routes>
-      
       <Route path="/login" exact element={<Login />} />
       <Route path="/register" exact element={<Register />} />
       <Route path="/" exact element={isAdmin ? <AdminHomepage /> : <Advertisements />} />
@@ -48,6 +48,7 @@ function PageRoutes() {
       <Route path="/edit_ad/:id" exact element={isLogged && !isAdmin ? <PostAd /> : null} />
       <Route path="/userdetails" exact element={<UserDetails />} />
       <Route path="/sellerprofile" exact element={<SellerProfile />} />
+      <Route path="/adminuprof/:id" exact element={<AdminUProf />} />
       <Route path="/my_ads" exact element={<MyAds />} />
     </Routes>
   )
