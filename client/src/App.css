@@ -11,6 +11,10 @@ body{
     -ms-overflow-style :none;
 }
 
+.mainpage{
+    display:flex;
+    overflow-y: scroll;
+}
 
 /* ::-webkit-scrollbar{
     display: none;

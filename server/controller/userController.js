@@ -87,6 +87,14 @@ const userController = {
             const hashedPassword = await bcrypt.hash(password, 10)
             console.log('here')
 
+            if(images.length!==0){
+                const newUser = new User({ name, email, contact, password: hashedPassword, province, city, gender, image: images })
+            }
+            else{
+                const newUser = new User({ name, email, contact, password: hashedPassword, province, city, gender })
+
+            }
+
             const newUser = new User({ name, email, contact, password: hashedPassword, province, city, gender, image: images })
 
             const newUserSaved = await newUser.save()

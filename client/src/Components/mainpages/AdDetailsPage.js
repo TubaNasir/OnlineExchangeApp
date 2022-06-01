@@ -34,15 +34,17 @@ function AdDetailsPage() {
     const [sub, setSub] = useState([])
     const [subSub, setSubSub] = useState([])
     const [isUserAd, setIsUserAd] = useState(false)
+    const [check,setCheck] = useState(false)
 
 
     useEffect(() => {
         const setAdUser = async () => {
             if (user){
-
-            
-           var check =  user.ads.every(item => {
-            return item !== adDetails._id
+                await user.ads?.every(async (item) => {
+                    console.log(item !== adDetails._id)
+                if( item === adDetails._id){
+                    setCheck(true)
+                }
         }); 
 
         console.log(check)
@@ -129,7 +131,6 @@ function AdDetailsPage() {
         const setAdvertisement = async () => {
             console.log(id)
             await advertisements.forEach(ad => {
-
                 //console.log(ad._id)
                 if (ad._id === id) {
                     setAdDetails(ad)
@@ -340,7 +341,8 @@ function AdDetailsPage() {
                             </div>
 
                         </div>
-                        {(isAdmin ) ? null:
+
+                        {(isAdmin || isUserAd) ? null:
                         <div className='chat'>
                             <button onClick={addToCart} className='cart_button'>
                                 <span>Add to cart</span>
