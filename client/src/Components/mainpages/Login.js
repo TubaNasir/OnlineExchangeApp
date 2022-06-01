@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { GlobalState } from '../../GlobalState';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { loginAPI } from '../../api/UserAPI';
-import  Toast from '../utilities/ToastMsg'
+import Toast from '../utilities/ToastMsg'
 function Login() {
-    
+
     const state = useContext(GlobalState)
-    
+
     const [token, setToken] = state.UserAPI.token
 
 
@@ -23,64 +23,81 @@ function Login() {
 
     const loginSubmit = async e => {
         e.preventDefault()
-            loginAPI({...user})
+        loginAPI({ ...user })
             .then(res => {
                 console.log(res.data)
                 localStorage.setItem('firstLogin', true);
-                alert("Logged in successfully")  
-                setToken(res.data.data.accessToken)      
+                alert("Logged in successfully")
+                setToken(res.data.data.accessToken)
                 window.location.href = '/'
-                {<Toast msg='Logged in' t={true}/>}
-                })
-            .catch(err =>  {
+                { <Toast msg='Logged in' t={true} /> }
+            })
+            .catch(err => {
                 console.log(err.response.data)
-                alert(err.response.data.error.msg)})
-        }
-        
-            
-      
-            //window.location.href = '/'
+                alert(err.response.data.error.msg)
+            })
+    }
 
-    
+
+
+    //window.location.href = '/'
+
+
 
     return (
 
-        
-        <div className='container col-md-6' style={{marginTop:'50px'}}>
-            <div className='form-div'>
-                <div className='title'>Login</div>
 
-                <form onSubmit={loginSubmit}>
-                    <input type='text'
-                        placeholder='Email'
-                        name='email'
-                        value={user.email}
-                        required
-                        onChange={onChangeInput}
-                        className='form-control form-group' />
+        <div className='container col-md-6'  >
+            <div className='card mt-4'>
 
-                    <input type='password'
-                        placeholder='Password'
-                        name='password'
-                        value={user.password}
-                        required
-                        onChange={onChangeInput}
-                        className='form-control form-group' />
+                <div className="card-header">
+                    <h4 style={{ textAlign: 'center' }}>Login</h4>
+                </div>
 
-                    <button type='submit'
-                        className='btn btn-danger btn-block'
-                        variant = 'primary'
-                        value='Submit'>Submit
-                        </button>
-                    
-
-                        
-                </form>
-                <div className="text-muted " >
-                                Don't have an account?  
+                <div className='card-body'>
+                    <form onSubmit={loginSubmit}>
+                        <div className='form-group mb-3'>
+                            <text style={{ marginTop: 5, marginBottom: 5, fontWeight: 500 }}>
+                                Email
+                            </text>
+                            <input type='text'
+                                name='email'
+                                value={user.email}
+                                required
+                                onChange={onChangeInput}
+                                className='form-control' />
                         </div>
-                        <a href="/register" className="btn btn-outline-secondary btn-sm" role="button" aria-pressed="true">Register</a>
 
+                        <div className='form-group mb-3'>
+                            <text style={{ marginTop: 5, marginBottom: 5, fontWeight: 500 }}>
+                                Password
+                            </text>
+                            <input type='password'
+                                //placeholder='Password'
+                                name='password'
+                                value={user.password}
+                                required
+                                onChange={onChangeInput}
+                                className='form-control form-group' />
+                        </div>
+
+                        <button type='submit'
+                            className='btn btn-danger btn-block'
+                            variant='primary'
+                            value='Submit'>Submit
+                        </button>
+
+
+
+                    </form>
+
+                    <div className="text-muted " >
+                        Don't have an account?
+                    </div>
+
+                    <a href="/register" className="btn btn-outline-secondary btn-sm" role="button" aria-pressed="true">Register</a>
+
+                </div>
             </div>
         </div>
     )

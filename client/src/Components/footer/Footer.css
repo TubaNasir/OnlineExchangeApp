@@ -7,7 +7,7 @@
 
 .rows{
     display: flex;
-    flex-wrap: wrap-reverse;
+    flex-wrap: column;
 }
 
 ul{
@@ -17,11 +17,15 @@ ul{
 .footer{
     background-color: #24262b;
     padding: 70px 0;
+    display: flex;
+    flex-direction: column;
+    flex:  0 0 50px;
 }
 
 .footer-col{
     width: 25%;
     padding: 0 15px;
+    
 }
 
 .footer-col h4{

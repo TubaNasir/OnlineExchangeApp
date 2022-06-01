@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     },
     image: {
         type: Object,
-        default: "https://www.kindpng.com/picc/m/421-4212287_default-avatar-male-user-icon-hd-png-download.png"
+        default: ["https://www.kindpng.com/picc/m/421-4212287_default-avatar-male-user-icon-hd-png-download.png"]
     },
     gender: {
         type: String,
