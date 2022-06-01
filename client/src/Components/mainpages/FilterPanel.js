@@ -11,13 +11,13 @@ const useStyles = makeStyles({
     width: '100%'
   },
   thumb: {
-    color: 'darkslategrey'
+    color: 'orangered'
   },
   rail: {
     color: 'rgba(0,0,0,.26)',
   },
   track: {
-    color: 'darkslategrey'
+    color: 'orangered'
   }
 });
 
