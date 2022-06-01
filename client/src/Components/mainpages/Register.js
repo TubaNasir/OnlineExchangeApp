@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { registerAPI } from '../../api/UserAPI';
+var FormData = require('form-data');
 
 
 
 function Register() {
     const [user, setUser] = useState({
-        name: '', email: '', password: '', gender: '', contact: '', city: '', province: '', role: 2, image: ''
+        name: '', email: '', password: '', gender: '', contact: '', city: '', province: '', role: 2, file1: ''
     })
 
     const [location, setLocation] = useState({
@@ -55,12 +56,28 @@ function Register() {
         const { name, value } = e.target;
         setUser({ ...user, [name]: value })
     }
-
+    const handleChangeSingle = (name) => (e) => {
+        const value = name === "file1" ? e.target.files : e.target.value;
+        setUser({ ...user, [name]: value });
+       
+      };
     const Sindh = ['Badin', 'Bhirkan', 'Rajo Khanani', 'Chak,Dadu', 'Digri', 'Diplo', 'Dokri', 'Ghotki', 'Haala', 'Hyderabad', 'Islamkot', 'Jacobabad', 'Jamshoro', 'Jungshahi', 'Kandhkot', 'Kandiaro', 'Karachi', 'Kashmore', 'Keti Bandar', 'Khairpur', 'Kotri', 'Larkana', 'Matiari', 'Mehar', 'Mirpur Khas', 'Mithani', 'Mithi', 'Mehrabpur', 'Moro', 'Nagarparkar', 'Naudero', 'Naushahro Feroze', 'Naushara', 'Nawabshah', 'Nazimabad', 'Qambar', 'Qasimabad', 'Ranipur', 'Ratodero', 'Rohri', 'Sakrand', 'Sanghar', 'Shahbandar', 'Shahdadkot', 'Shahdadpur', 'Shahpur Chakar', 'Shikarpaur', 'Sukkur', 'Tangwani', 'Tando Adam Khan', 'Tando Allahyar', 'Tando Muhammad Khan', 'Thatta', 'Umerkot', 'Warah']
 
     const registerSubmit = async e => {
         e.preventDefault()
-        registerAPI({ ...user })
+        e.preventDefault()
+        let formdata = new FormData();
+        formdata.append('name', user.name)
+        formdata.append('email', user.email)
+        formdata.append('password', user.password)
+        formdata.append('gender', user.gender)
+        formdata.append('contact', user.contact)
+        formdata.append('area', user.area)
+        formdata.append('city', user.city)
+        formdata.append('province', user.province)
+        formdata.append('role', user.role)
+        formdata.append('file1', user.file1[0]);
+        registerAPI(formdata)
             .then(res => {
                 console.log(res.data)
                 alert('Registered Successfully')
@@ -194,17 +211,16 @@ function Register() {
                         </div>
 
 </div>
-
-
                         <div className='col-md-8 form-group mb-3'>
                             <label style={{ marginTop: 5, marginBottom: 5, fontWeight: 500 }}>Image</label>
-                            <input type="file" name='image' value={user.image} onChange={onChangeInput} className='form-control form-group' />
+                            <input type="file" name='file1' value={user.image} onChange={handleChangeSingle("file1")} className='form-control form-group' />
                         </div>
 
 
                         <div className='form-group mb-3'>
                             <button type='submit'
                                 className='btn btn-danger px-4 mt-2'
+                                style={{background:'#eb4605'}}
                                 value='Submit'>Register
                             </button>
                         </div>

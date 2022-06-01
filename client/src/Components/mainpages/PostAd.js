@@ -4,7 +4,9 @@ import { GlobalState } from '../../GlobalState'
 import { Container, Row, Col, Modal, Button, FormGroup } from 'react-bootstrap'
 import Title from '../utilities/Title'
 import Toast from '../utilities/ToastMsg'
+import {FaRegQuestionCircle} from 'react-icons/fa'
 import { IoIosImage } from 'react-icons/io'
+import {FaListUl} from 'react-icons/fa'
 import { MdLocationOn, MdAttachMoney } from 'react-icons/md'
 import {IoMdImage} from 'react-icons/io'
 import '../UI/PostAd.css'
@@ -355,12 +357,13 @@ console.log(cat)
         <form onSubmit={handleSubmit}>
           <Col md={{ span: 8, offset: 2 }}>
             <Row>
-              <label className='mainLabel'><IoIosImage />Details</label>
+              <label className='mainLabel'><FaRegQuestionCircle/>Details</label>
               <Row>
                 <label className='subLabel'>Name</label>
                 <input type='text'
                   placeholder='Name'
                   name='name'
+                  required
                   value={ad.name}
                   onChange={onChangeInput}
                   className='form-control form-group' />
@@ -391,7 +394,7 @@ console.log(cat)
               </Row>
             </Row>
 
-            <Row><label className='mainLabel'>Category</label>
+            <Row><label className='mainLabel'><FaListUl/>Category</label>
               <Row>
                 <label className='subLabel'>Main Category</label>
                 <select className="form-select" placeholder="Main Category" value={cat.selectedMainCat} required onChange={changeMainCategory}>
@@ -495,10 +498,11 @@ console.log(cat)
                 margin: '30px 0'
               }}
             />
-            <Button type='submit'
-              className='btn  btn-block'
-              variant='primary'
-              value='Submit'>POST AD</Button>
+            <div className='checkout'>
+                            <button className='checkout_button'>
+                                <span>Post Advertisement</span>
+                            </button>
+                    </div>
           </Col>
         </form>
       </Container>

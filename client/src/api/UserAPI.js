@@ -26,7 +26,7 @@ export default function UserAPI() {
                         .then(res => {
                             timer = setTimeout(() => {
                                 refreshToken()
-                            }, 100000)
+                            }, 60 * 60 * 1000)
                             console.log(res.data)
                             setToken(res.data.data)
                             setIsLogged(true)

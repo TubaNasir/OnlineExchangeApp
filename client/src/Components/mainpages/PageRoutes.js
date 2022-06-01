@@ -33,7 +33,6 @@ function PageRoutes() {
 
   return (
     <Routes>
-
       <Route path="/login" exact element={<Login />} />
       <Route path="/register" exact element={<Register />} />
       <Route path="/" exact element={isAdmin ? <AdminHomepage /> : <Advertisements />} />

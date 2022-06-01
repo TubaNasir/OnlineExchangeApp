@@ -20,7 +20,7 @@ function Cart() {
     
   
   useEffect(() => {
-if (user && cart.length!==0){
+{
   setUserCartDetails([])
     const add = async () => {
       cart.forEach( (c) =>{
@@ -64,8 +64,8 @@ console.log(userCartDetails)
           <Col md={{ span: 8, offset: 2 }}>
             {
                 userCartDetails.map(advertisement => {
-                    return (<Link id="ad" to={`/ad/${advertisement._id}`}><ul className='list'>
-                <AdDetails key={advertisement._id} advertisement={advertisement} del={true} tag={true}/></ul></Link>)
+                    return (<ul className='list'>
+                <AdDetails key={advertisement._id} advertisement={advertisement} del={true} tag={true}/></ul>)
                 })
             }     
 
