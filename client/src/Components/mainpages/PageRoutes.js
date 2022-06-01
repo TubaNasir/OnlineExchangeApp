@@ -32,20 +32,6 @@ function PageRoutes() {
   return (
     <Routes>
         
-        <Route path="/login" exact element={<Login/>}/>
-        <Route path="/register" exact element={<Register/>}/>
-        <Route path="/" exact element={isAdmin ? <AdminHomepage/> : <Advertisements/>}/>
-        <Route path="/:slug" exact element={isAdmin ? <AdminHomepage/> : <Advertisements/>}/>
-        <Route path="/users" exact element={<Users/>}/>
-        <Route path="/orders" exact element={<Orders/>}/>
-        <Route path="/cart" exact element={<Cart/>}/>
-        <Route path="/profile" exact element={<Profile/>}/>
-        <Route path="/category" exact element={<Category/>}/>
-        <Route path="/checkout" exact element={<Checkout/>}/>
-        <Route path='/ad/:id' exact element={<AdDetailsPage/>}/>
-        <Route path="/post_ad" exact element={isLogged && !isAdmin ?  <PostAd/> : <Navigate to='/login'/>}/>
-        <Route path="/edit_ad/:id" exact element={isLogged && !isAdmin ?  <PostAd/> : null}/>
-
       <Route path="/login" exact element={<Login />} />
       <Route path="/register" exact element={<Register />} />
       <Route path="/" exact element={isAdmin ? <AdminHomepage /> : <Advertisements />} />
